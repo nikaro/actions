@@ -1,0 +1,37 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    "helpers:pinGitHubActionDigests",
+    "regexManagers:dockerfileVersions",
+    "regexManagers:githubActionsVersions",
+    "schedule:daily",
+    ":automergeAll",
+    ":disableRateLimiting",
+    ":enablePreCommit",
+    ":maintainLockFilesWeekly"
+  ],
+  "packageRules": [
+    {
+      "groupName": "github actions",
+      "matchFileNames": [".github/**"]
+    },
+    {
+      "groupName": "pre-commit",
+      "matchFileNames": [".pre-commit-config.yaml"]
+    },
+    {
+      "groupName": "python packages",
+      "matchFileNames": ["pyproject.toml", "poetry.lock"]
+    }
+  ],
+  "regexManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["(^|/)\\.pre-commit-config\\.ya?ml$"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>[a-z-.]+?) depName=(?<depName>[^\\s]+?)(?: (?:lookupName|packageName)=(?<packageName>[^\\s]+?))?(?: versioning=(?<versioning>[a-z-0-9]+?))?\\s+-\\s+[A-Za-z0-9_-]+?==(?<currentValue>.+?)\\s"
+      ]
+    }
+  ]
+}
