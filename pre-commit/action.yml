@@ -32,6 +32,7 @@ runs:
         PYTHON_VERSION: 3.11.5
 
     - name: Setup Python
+      id: setup-python
       uses: actions/setup-python@61a6322f88396a6271a6ee3565807d608ecaddd1 # v4.7.0
       with:
         python-version: ${{ env.python || env.PYTHON_VERSION }}
@@ -49,6 +50,8 @@ runs:
     - name: Install pre-commit
       shell: bash
       run: pipx install pre-commit==${{ inputs.version || env.PRE_COMMIT_VERSION }}
+      env:
+        PIPX_DEFAULT_PYTHON: ${{ steps.setup-python.outputs.python-path }}
 
     - name: Instal pre-commit hooks
       shell: bash
