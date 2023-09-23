@@ -1,0 +1,47 @@
+name: pre-commit
+description: Run pre-commit hooks
+
+inputs:
+  args:
+    description: arguments to pass to pre-commit run
+    required: false
+    default: --all-files
+  skip:
+    description: comma separated list of hooks id to skip
+    required: false
+    default: no-commit-to-branch
+  version:
+    description: pre-commit version
+    required: false
+
+runs:
+  using: composite
+  steps:
+    - name: Setup pre-commit cache
+      uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
+      with:
+        path: ~/.cache/pre-commit
+        key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+        restore-keys: |
+          pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+          pre-commit-
+
+    - name: Install pre-commit
+      shell: bash
+      run: pipx install pre-commit==${{ inputs.version || env.TOOL_VERSION }}
+      env:
+        # renovate: datasource=pypi depName=pre-commit
+        TOOL_VERSION: 3.4.0
+
+    - name: Instal pre-commit hooks
+      shell: bash
+      run: pre-commit install-hooks
+
+    - name: Run pre-commit
+      if: inputs.files != ''
+      shell: bash
+      env:
+        SKIP: ${{ inputs.skip }}
+      run: |
+        shopt -s globstar
+        pre-commit run --show-diff-on-failure --color=always ${{ inputs.args }}
