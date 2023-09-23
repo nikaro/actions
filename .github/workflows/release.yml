@@ -17,17 +17,10 @@ jobs:
     permissions:
       contents: write
     steps:
-      # - name: Generate token
-      #   id: token
-      #   uses: jamestrousdale/github-app-jwt-token@3be1ec4108931ed32de7c5b0fa420219fe0b3eba # 0.1.4
-      #   with:
-      #     app-id: ${{ secrets.CZ_APP_ID }}
-      #     private-key: ${{ secrets.CZ_APP_PRIVATE_KEY }}
-
       - name: Checkout
         uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0
-        # with:
-        #   token: ${{ steps.token.outputs.access-token }}
+        with:
+          fetch-depth: 0
 
       - name: Dry run
         uses: commitizen-tools/commitizen-action@bc2616fec6b3effc9ad20380f19550a8b18cdbdf # 0.20.0
@@ -47,7 +40,6 @@ jobs:
       - name: Release
         uses: ncipollo/release-action@6c75be85e571768fa31b40abf38de58ba0397db5 # v1.13.0
         with:
-          # token: ${{ steps.token.outputs.access-token }}
           bodyFile: _changelog.md
           skipIfReleaseExists: true
           tag: ${{ env.REVISION }}
