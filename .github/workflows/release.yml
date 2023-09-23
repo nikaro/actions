@@ -10,8 +10,8 @@ env:
   COMMITIZEN_VERSION: 3.9.1
 
 jobs:
-  bump:
-    name: Lint
+  release:
+    name: Release
     runs-on: ubuntu-22.04
     permissions: {}
     steps:
