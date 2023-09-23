@@ -12,6 +12,7 @@ env:
 jobs:
   release:
     name: Release
+    if: "!startsWith(github.event.head_commit.message, 'bump:')"
     runs-on: ubuntu-22.04
     permissions:
       contents: write
