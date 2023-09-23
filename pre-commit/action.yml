@@ -35,7 +35,6 @@ runs:
       uses: actions/setup-python@61a6322f88396a6271a6ee3565807d608ecaddd1 # v4.7.0
       with:
         python-version: ${{ env.python || env.PYTHON_VERSION }}
-        cache: pip
 
     - name: Setup pre-commit cache
       uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
