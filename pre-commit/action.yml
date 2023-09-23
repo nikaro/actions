@@ -6,6 +6,9 @@ inputs:
     description: arguments to pass to pre-commit run
     required: false
     default: --all-files
+  python:
+    description: python version
+    required: false
   skip:
     description: comma separated list of hooks id to skip
     required: false
@@ -17,21 +20,36 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: Environment variables
+      shell: bash
+      run: |
+        echo "PRE_COMMIT_VERSION=${{ env.PRE_COMMIT_VERSION }}" >> "$GITHUB_ENV"
+        echo "PYTHON_VERSION=${{ env.PYTHON_VERSION }}" >> "$GITHUB_ENV"
+      env:
+        # renovate: datasource=pypi depName=pre-commit
+        PRE_COMMIT_VERSION: 3.4.0
+        # renovate: datasource=repology depName=homebrew/python
+        PYTHON_VERSION: 3.11.5
+
+    - name: Setup Python
+      uses: actions/setup-python@61a6322f88396a6271a6ee3565807d608ecaddd1 # v4.7.0
+      with:
+        python-version: ${{ env.python || env.PYTHON_VERSION }}
+        cache: poetry
+
     - name: Setup pre-commit cache
       uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
       with:
         path: ~/.cache/pre-commit
         key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
         restore-keys: |
-          pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+          pre-commit-${{ env.PYTHON_VERSION }}-${{ hashFiles('.pre-commit-config.yaml') }}
+          pre-commit-${{ env.PYTHON_VERSION }}-
           pre-commit-
 
     - name: Install pre-commit
       shell: bash
-      run: pipx install pre-commit==${{ inputs.version || env.TOOL_VERSION }}
-      env:
-        # renovate: datasource=pypi depName=pre-commit
-        TOOL_VERSION: 3.4.0
+      run: pipx install pre-commit==${{ inputs.version || env.PRE_COMMIT_VERSION }}
 
     - name: Instal pre-commit hooks
       shell: bash
