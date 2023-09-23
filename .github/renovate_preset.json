@@ -36,5 +36,7 @@
       ]
     }
   ],
-  "reviewersFromCodeOwners": true
+  "reviewersFromCodeOwners": true,
+  "separateMajorMinor": false,
+  "timezone": "Europe/Paris"
 }
