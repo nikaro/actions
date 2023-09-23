@@ -48,4 +48,5 @@ jobs:
         with:
           # token: ${{ steps.token.outputs.access-token }}
           bodyFile: _changelog.md
+          skipIfReleaseExists: true
           tag: ${{ env.REVISION }}
