@@ -1,0 +1,85 @@
+name: pulumi-preview-py
+description: Run pulumi preview with Python SDK
+
+inputs:
+  backend:
+    description: pulumi backend url to log in to
+    required: false
+  no-changes:
+    description: fails if any changes is planned
+    required: false
+    default: ${{ endsWith(github.actor, '[bot]') }}
+  python:
+    description: python version
+    required: false
+  stack:
+    description: pulumi stack to use
+    required: true
+  token:
+    description: pulumi access token
+    required: true
+  version:
+    description: pulumi version to install
+    required: false
+  workdir:
+    description: change working directory
+    required: false
+    default: .
+
+runs:
+  using: composite
+  steps:
+    - name: Environment variables
+      shell: bash
+      run: |
+        echo "POETRY_VERSION=${{ env.POETRY_VERSION }}" >> "$GITHUB_ENV"
+        echo "PRE_COMMIT_VERSION=${{ env.PRE_COMMIT_VERSION }}" >> "$GITHUB_ENV"
+        echo "PYTHON_VERSION=${{ env.PYTHON_VERSION }}" >> "$GITHUB_ENV"
+      env:
+        # renovate: datasource=pypi depName=poetry
+        POETRY_VERSION: 1.6.1
+        # renovate: datasource=pypi depName=pre-commit
+        PRE_COMMIT_VERSION: 3.4.0
+        # renovate: datasource=github-releases depName=actions/python-versions
+        PYTHON_VERSION: 3.11.5
+
+    - name: Install Poetry
+      shell: bash
+      run: pipx install poetry==${{ env.POETRY_VERSION }}
+
+    - name: Setup Python
+      id: setup-python
+      uses: actions/setup-python@61a6322f88396a6271a6ee3565807d608ecaddd1 # v4.7.0
+      with:
+        python-version: ${{ env.python || env.PYTHON_VERSION }}
+        cache: poetry
+
+    - name: Install Poetry
+      shell: bash
+      working-directory: ${{ inputs.workdir }}
+      run: poetry install
+
+    - name: Export virtualenv path
+      id: virtualenv
+      shell: bash
+      working-directory: ${{ inputs.workdir }}
+      run: echo "virtualenv=$(poetry env info --path)" >> "$GITHUB_OUTPUT"
+
+    - name: Append virtualenv to PATH
+      shell: bash
+      working-directory: ${{ inputs.workdir }}
+      run: echo "${{ steps.virtualenv.outputs.virtualenv }}/bin" >> "$GITHUB_PATH"
+
+    - name: Preview changes
+      uses: pulumi/actions@1d3ebd326317f249313706eeb489c9ed7c036443 # v4.5.0
+      with:
+        pulumi-version: ${{ inputs.version || env.PULUMI_VERSION }}
+        work-dir: ${{ inputs.workdir }}
+        command: preview
+        cloud-url: ${{ inputs.backend }}
+        stack-name: ${{ inputs.stack }}
+        comment-on-pr: true
+        comment-on-summary: true
+        expect-no-changes: ${{ inputs.no-changes }}
+      env:
+        PULUMI_ACCESS_TOKEN: ${{ inputs.token }}
