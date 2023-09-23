@@ -10,8 +10,63 @@ env:
   COMMITIZEN_VERSION: 3.9.1
 
 jobs:
+  list-actions:
+    name: List Actions
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    outputs:
+      actions: ${{ steps.list-dirs.outputs.actions }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0
+
+      - name: List directories
+        id: list-dirs
+        shell: python
+        run: |
+          import json
+          import os
+          from pathlib import Path
+          actions = [
+            d.name
+            for d in Path('.').iterdir()
+            if d.is_dir() and not d.name.startswith('.')
+          ]
+          with open(os.environ["GITHUB_OUTPUT"], mode="a") as gh_output:
+            print(f"actions={json.dumps(actions)}", file=gh_output)
+
+  autodoc:
+    name: Generate documentation
+    needs: [list-actions]
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    strategy:
+      max-parallel: 1
+      matrix:
+        action: ${{ fromJSON(needs.list-actions.outputs.actions) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Run auto-doc
+        uses: tj-actions/auto-doc@234e456d74f40863a3d0381f1e3779b1982b5160 # v3.0.1
+        with:
+          filename: ${{ matrix.action }}/action.yml
+          output: ${{ matrix.action }}/README.md
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@3ea6ae190baf489ba007f7c92608f33ce20ef04a # v4.16.0
+        with:
+          commit_message: "docs: auto-update action documentation"
+          file_pattern: "*/README.md"
+
   release:
     name: Release
+    needs: [autodoc]
     if: "!startsWith(github.event.head_commit.message, 'bump:')"
     runs-on: ubuntu-22.04
     permissions:
