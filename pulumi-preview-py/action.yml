@@ -33,13 +33,13 @@ runs:
       shell: bash
       run: |
         echo "POETRY_VERSION=${{ env.POETRY_VERSION }}" >> "$GITHUB_ENV"
-        echo "PRE_COMMIT_VERSION=${{ env.PRE_COMMIT_VERSION }}" >> "$GITHUB_ENV"
+        echo "PULUMI_VERSION=${{ env.PULUMI_VERSION }}" >> "$GITHUB_ENV"
         echo "PYTHON_VERSION=${{ env.PYTHON_VERSION }}" >> "$GITHUB_ENV"
       env:
         # renovate: datasource=pypi depName=poetry
         POETRY_VERSION: 1.6.1
-        # renovate: datasource=pypi depName=pre-commit
-        PRE_COMMIT_VERSION: 3.4.0
+        # renovate: datasource=pypi depName=pulumi
+        PULUMI_VERSION: 3.85.0
         # renovate: datasource=github-releases depName=actions/python-versions
         PYTHON_VERSION: 3.11.5
 
