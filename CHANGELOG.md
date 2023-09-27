@@ -1,3 +1,9 @@
+## 0.4.2 (2023-09-27)
+
+### Refactor
+
+- **pre-commit**: rename python version input
+
 ## 0.4.1 (2023-09-27)
 
 ### Fix
