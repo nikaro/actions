@@ -16,13 +16,14 @@ GitHub Action that runs `pulumi up` on a project using the Python SDK and Poetry
 
 <!-- AUTO-DOC-INPUT:START - Do not remove or modify this section -->
 
-|                         INPUT                         |  TYPE  | REQUIRED | DEFAULT |             DESCRIPTION              |
-|-------------------------------------------------------|--------|----------|---------|--------------------------------------|
-| <a name="input_backend"></a>[backend](#input_backend) | string |  false   |         | pulumi backend url to log <br>in to  |
-|  <a name="input_python"></a>[python](#input_python)   | string |  false   |         |            python version            |
-|    <a name="input_stack"></a>[stack](#input_stack)    | string |   true   |         |         pulumi stack to use          |
-|    <a name="input_token"></a>[token](#input_token)    | string |   true   |         |         pulumi access token          |
-| <a name="input_version"></a>[version](#input_version) | string |  false   |         |      pulumi version to install       |
-| <a name="input_workdir"></a>[workdir](#input_workdir) | string |  false   |  `"."`  |       change working directory       |
+|                                   INPUT                                    |  TYPE  | REQUIRED |  DEFAULT   |             DESCRIPTION              |
+|----------------------------------------------------------------------------|--------|----------|------------|--------------------------------------|
+|           <a name="input_backend"></a>[backend](#input_backend)            | string |  false   |            | pulumi backend url to log <br>in to  |
+| <a name="input_poetry-version"></a>[poetry-version](#input_poetry-version) | string |  false   | `"1.6.1"`  |            poetry version            |
+| <a name="input_python-version"></a>[python-version](#input_python-version) | string |  false   | `"3.11.5"` |            python version            |
+|              <a name="input_stack"></a>[stack](#input_stack)               | string |   true   |            |         pulumi stack to use          |
+|              <a name="input_token"></a>[token](#input_token)               | string |   true   |            |         pulumi access token          |
+|           <a name="input_version"></a>[version](#input_version)            | string |  false   | `"3.85.0"` |      pulumi version to install       |
+|           <a name="input_workdir"></a>[workdir](#input_workdir)            | string |  false   |   `"."`    |       change working directory       |
 
 <!-- AUTO-DOC-INPUT:END -->
