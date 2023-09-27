@@ -9,9 +9,16 @@ inputs:
     description: fails if any changes is planned
     required: false
     default: ${{ endsWith(github.actor, '[bot]') }}
-  python:
+  poetry-version:
+    description: poetry version
+    required: false
+    # renovate: datasource=pypi depName=poetry
+    default: 1.6.1
+  python-version:
     description: python version
     required: false
+    # renovate: datasource=github-releases depName=actions/python-versions
+    default: 3.11.5
   stack:
     description: pulumi stack to use
     required: true
@@ -21,6 +28,8 @@ inputs:
   version:
     description: pulumi version to install
     required: false
+    # renovate: datasource=pypi depName=pulumi
+    default: 3.85.0
   workdir:
     description: change working directory
     required: false
@@ -29,51 +38,31 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Environment variables
-      shell: bash
-      run: |
-        echo "POETRY_VERSION=${{ env.POETRY_VERSION }}" >> "$GITHUB_ENV"
-        echo "PULUMI_VERSION=${{ env.PULUMI_VERSION }}" >> "$GITHUB_ENV"
-        echo "PYTHON_VERSION=${{ env.PYTHON_VERSION }}" >> "$GITHUB_ENV"
-      env:
-        # renovate: datasource=pypi depName=poetry
-        POETRY_VERSION: 1.6.1
-        # renovate: datasource=pypi depName=pulumi
-        PULUMI_VERSION: 3.85.0
-        # renovate: datasource=github-releases depName=actions/python-versions
-        PYTHON_VERSION: 3.11.5
-
     - name: Install Poetry
       shell: bash
-      run: pipx install poetry==${{ env.POETRY_VERSION }}
+      run: pipx install poetry==${{ inputs.poetry-version }}
 
     - name: Setup Python
       id: setup-python
       uses: actions/setup-python@61a6322f88396a6271a6ee3565807d608ecaddd1 # v4.7.0
       with:
-        python-version: ${{ env.python || env.PYTHON_VERSION }}
+        python-version: ${{ inputs.python-version }}
         cache: poetry
 
-    - name: Install Poetry
+    - name: Install project dependencies
       shell: bash
       working-directory: ${{ inputs.workdir }}
       run: poetry install
 
-    - name: Export virtualenv path
-      id: virtualenv
-      shell: bash
-      working-directory: ${{ inputs.workdir }}
-      run: echo "virtualenv=$(poetry env info --path)" >> "$GITHUB_OUTPUT"
-
     - name: Append virtualenv to PATH
       shell: bash
       working-directory: ${{ inputs.workdir }}
-      run: echo "${{ steps.virtualenv.outputs.virtualenv }}/bin" >> "$GITHUB_PATH"
+      run: echo "$(poetry env info --path)/bin" >> "$GITHUB_PATH"
 
     - name: Preview changes
       uses: pulumi/actions@1d3ebd326317f249313706eeb489c9ed7c036443 # v4.5.0
       with:
-        pulumi-version: ${{ inputs.version || env.PULUMI_VERSION }}
+        pulumi-version: ${{ inputs.version }}
         work-dir: ${{ inputs.workdir }}
         command: preview
         cloud-url: ${{ inputs.backend }}

@@ -9,6 +9,8 @@ inputs:
   python:
     description: python version
     required: false
+    # renovate: datasource=github-releases depName=actions/python-versions
+    default: 3.11.5
   skip:
     description: comma separated list of hooks id to skip
     required: false
@@ -16,6 +18,8 @@ inputs:
   version:
     description: pre-commit version
     required: false
+    # renovate: datasource=pypi depName=pre-commit
+    default: 3.4.0
   workdir:
     description: change working directory for pre-commit run
     required: false
@@ -24,22 +28,11 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Environment variables
-      shell: bash
-      run: |
-        echo "PRE_COMMIT_VERSION=${{ env.PRE_COMMIT_VERSION }}" >> "$GITHUB_ENV"
-        echo "PYTHON_VERSION=${{ env.PYTHON_VERSION }}" >> "$GITHUB_ENV"
-      env:
-        # renovate: datasource=pypi depName=pre-commit
-        PRE_COMMIT_VERSION: 3.4.0
-        # renovate: datasource=github-releases depName=actions/python-versions
-        PYTHON_VERSION: 3.11.5
-
     - name: Setup Python
       id: setup-python
       uses: actions/setup-python@61a6322f88396a6271a6ee3565807d608ecaddd1 # v4.7.0
       with:
-        python-version: ${{ env.python || env.PYTHON_VERSION }}
+        python-version: ${{ inputs.python }}
 
     - name: Setup pre-commit cache
       uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
@@ -47,13 +40,13 @@ runs:
         path: ~/.cache/pre-commit
         key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
         restore-keys: |
-          pre-commit-${{ env.PYTHON_VERSION }}-${{ hashFiles('.pre-commit-config.yaml') }}
-          pre-commit-${{ env.PYTHON_VERSION }}-
+          pre-commit-${{ inputs.python }}-${{ hashFiles('.pre-commit-config.yaml') }}
+          pre-commit-${{ inputs.python }}-
           pre-commit-
 
     - name: Install pre-commit
       shell: bash
-      run: pipx install pre-commit==${{ inputs.version || env.PRE_COMMIT_VERSION }}
+      run: pipx install pre-commit==${{ inputs.version }}
       env:
         PIPX_DEFAULT_PYTHON: ${{ steps.setup-python.outputs.python-path }}
 
