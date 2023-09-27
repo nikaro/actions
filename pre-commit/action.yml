@@ -16,6 +16,10 @@ inputs:
   version:
     description: pre-commit version
     required: false
+  workdir:
+    description: change working directory for pre-commit run
+    required: false
+    default: .
 
 runs:
   using: composite
@@ -59,8 +63,7 @@ runs:
 
     - name: Run pre-commit
       shell: bash
-      run: |
-        shopt -s globstar
-        pre-commit run --show-diff-on-failure --color=always ${{ inputs.args }}
+      working-directory: ${{ inputs.workdir }}
+      run: pre-commit run --show-diff-on-failure --color=always ${{ inputs.args }}
       env:
         SKIP: ${{ inputs.skip }}
