@@ -11,14 +11,17 @@
     ":automergeAll",
     ":disableRateLimiting",
     ":enablePreCommit",
-    ":maintainLockFilesWeekly"
+    ":maintainLockFilesWeekly",
+    ":semanticCommitTypeAll(fix)"
   ],
   "packageRules": [
     {
+      "extends": [":semanticCommitTypeAll(ci)"],
       "groupName": "github actions",
       "matchFileNames": [".github/**"]
     },
     {
+      "extends": [":semanticCommitTypeAll(ci)"],
       "groupName": "pre-commit",
       "matchFileNames": [".pre-commit-config.yaml"]
     },
