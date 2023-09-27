@@ -3,6 +3,13 @@ name: Release
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - .github/**
+      - .cz.toml
+      - .gitignore
+      - .pre-commit-config.yaml
+      - .yamllint.yml
+      - CHANGELOG.md
   workflow_dispatch:
 
 env:
