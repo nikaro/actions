@@ -1,12 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["github>nikaro/actions//.github/renovate_preset"],
-  "regexManagers": [
+  "customManagers": [
     {
       "customType": "regex",
       "fileMatch": ["(^|/)action\\.ya?ml$"],
       "matchStrings": [
-        "# renovate: datasource=(?<datasource>[a-z-.]+?) depName=(?<depName>[^\\s]+?)(?: (?:lookupName|packageName)=(?<packageName>[^\\s]+?))?(?: versioning=(?<versioning>[a-z-0-9]+?))?\\s+-\\s+default:\\s+(?<currentValue>.+?)\\s"
+        "# renovate: datasource=(?<datasource>[a-z-.]+?) depName=(?<depName>[^\\s]+?)(?: (?:lookupName|packageName)=(?<packageName>[^\\s]+?))?(?: versioning=(?<versioning>[a-z-0-9]+?))?\\s+default:\\s+(?<currentValue>.+?)\\s"
       ]
     }
   ]

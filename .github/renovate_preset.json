@@ -27,7 +27,7 @@
       "matchFileNames": ["pyproject.toml", "poetry.lock"]
     }
   ],
-  "regexManagers": [
+  "customManagers": [
     {
       "customType": "regex",
       "fileMatch": ["(^|/)\\.pre-commit-config\\.ya?ml$"],
