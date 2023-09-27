@@ -6,7 +6,7 @@ inputs:
     description: arguments to pass to pre-commit run
     required: false
     default: --all-files
-  python:
+  python-version:
     description: python version
     required: false
     # renovate: datasource=github-releases depName=actions/python-versions
@@ -32,7 +32,7 @@ runs:
       id: setup-python
       uses: actions/setup-python@61a6322f88396a6271a6ee3565807d608ecaddd1 # v4.7.0
       with:
-        python-version: ${{ inputs.python }}
+        python-version: ${{ inputs.python-version }}
 
     - name: Setup pre-commit cache
       uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
