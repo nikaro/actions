@@ -1,3 +1,9 @@
+## 0.5.0 (2023-09-27)
+
+### Feat
+
+- add pre-commit-monorepo action
+
 ## 0.4.2 (2023-09-27)
 
 ### Refactor
