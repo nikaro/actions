@@ -16,14 +16,14 @@
   ],
   "packageRules": [
     {
-      "extends": [":semanticCommitTypeAll(ci)"],
       "groupName": "github actions",
-      "matchFileNames": [".github/**"]
+      "matchFileNames": [".github/**"],
+      "semanticCommitType": "ci"
     },
     {
-      "extends": [":semanticCommitTypeAll(ci)"],
       "groupName": "pre-commit",
-      "matchFileNames": [".pre-commit-config.yaml"]
+      "matchFileNames": [".pre-commit-config.yaml"],
+      "semanticCommitType": "ci"
     },
     {
       "groupName": "python packages",
