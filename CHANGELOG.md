@@ -1,3 +1,13 @@
+## 0.4.0 (2023-09-27)
+
+### Feat
+
+- **pre-commit**: add workdir input
+
+### Refactor
+
+- move default versions to inputs defaults
+
 ## 0.3.1 (2023-09-23)
 
 ### Fix
