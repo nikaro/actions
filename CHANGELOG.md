@@ -1,3 +1,9 @@
+## 0.5.1 (2023-10-03)
+
+### Fix
+
+- **deps**: update actions/setup-python action to v4.7.1 (#8)
+
 ## 0.5.0 (2023-09-27)
 
 ### Feat
