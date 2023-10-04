@@ -1,3 +1,10 @@
+## 0.5.2 (2023-10-04)
+
+### Fix
+
+- **pre-commit-monorepo**: fix cache key
+- **pre-commit**: fix cache key
+
 ## 0.5.1 (2023-10-03)
 
 ### Fix
