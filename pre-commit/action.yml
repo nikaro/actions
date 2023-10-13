@@ -19,7 +19,7 @@ inputs:
     description: pre-commit version
     required: false
     # renovate: datasource=pypi depName=pre-commit
-    default: 3.4.0
+    default: 3.5.0
   workdir:
     description: change working directory for pre-commit run
     required: false
