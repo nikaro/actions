@@ -1,3 +1,9 @@
+## 0.5.6 (2023-10-13)
+
+### Fix
+
+- **deps**: update dependency pre-commit to v3.5.0 (#14)
+
 ## 0.5.5 (2023-10-12)
 
 ### Fix
