@@ -9,7 +9,7 @@ inputs:
   python-version:
     description: python version
     required: false
-    # renovate: datasource=github-releases depName=actions/python-versions
+    # renovate: datasource=github-releases depName=actions/python-versions versioning=loose
     default: 3.11.5
   skip:
     description: comma separated list of hooks id to skip
