@@ -14,7 +14,7 @@
     {
       "matchPackageNames": ["actions/python-versions"],
       "allowedVersions": "!/(alpha|beta|rc)/",
-      "extractVersion": "^(?<version>\\d+\\.\\d+\\.\\d+)"
+      "extractVersion": "^(?<version>\\d+\\.\\d+\\.\\d+(-\\D+)?)"
     }
   ]
 }
