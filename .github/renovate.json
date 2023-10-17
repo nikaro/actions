@@ -13,7 +13,8 @@
   "packageRules": [
     {
       "matchPackageNames": ["actions/python-versions"],
-      "allowedVersions": "!/(alpha|beta|rc)/"
+      "allowedVersions": "!/(alpha|beta|rc)/",
+      "extractVersion": "^(?<version>\\d+\\.\\d+\\.\\d+)"
     }
   ]
 }
