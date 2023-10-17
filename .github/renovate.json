@@ -9,5 +9,11 @@
         "# renovate: datasource=(?<datasource>[a-z-.]+?) depName=(?<depName>[^\\s]+?)(?: (?:lookupName|packageName)=(?<packageName>[^\\s]+?))?(?: versioning=(?<versioning>[a-z-0-9]+?))?\\s+default:\\s+(?<currentValue>.+?)\\s"
       ]
     }
+  ],
+  "packageRules": [
+    {
+      "matchPackageNames": ["actions/python-versions"],
+      "allowedVersions": "!/(alpha|beta|rc)/"
+    }
   ]
 }
