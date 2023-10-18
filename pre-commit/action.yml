@@ -40,8 +40,9 @@ runs:
         path: ~/.cache/pre-commit
         key: pre-commit-${{ inputs.python }}-${{ hashFiles('.pre-commit-config.yaml') }}
         restore-keys: |
-          pre-commit-${{ inputs.python }}-${{ hashFiles('.pre-commit-config.yaml') }}
-          pre-commit-${{ inputs.python }}-
+          pre-commit-py${{ inputs.python-version }}-pc${{ inputs.version }}-${{ hashFiles('.pre-commit-config.yaml') }}
+          pre-commit-py${{ inputs.python-version }}-pc${{ inputs.version }}-
+          pre-commit-py${{ inputs.python-version }}-
           pre-commit-
 
     - name: Install pre-commit
