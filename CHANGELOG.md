@@ -1,3 +1,10 @@
+## 0.5.10 (2023-10-18)
+
+### Fix
+
+- **pre-commit**: fix primary cache key
+- **pre-commit-monorepo**: fix primary cache key
+
 ## 0.5.9 (2023-10-18)
 
 ### Fix
