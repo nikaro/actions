@@ -21,10 +21,10 @@ GitHub Action that runs `pulumi preview` on a project using the Python SDK and P
 |           <a name="input_backend"></a>[backend](#input_backend)            | string |  false   |                                            | pulumi backend url to log <br>in to  |
 |       <a name="input_no-changes"></a>[no-changes](#input_no-changes)       | string |  false   | `"${{ endsWith(github.actor, '[bot]') }}"` | fails if any changes is <br>planned  |
 | <a name="input_poetry-version"></a>[poetry-version](#input_poetry-version) | string |  false   |                 `"1.6.1"`                  |            poetry version            |
-| <a name="input_python-version"></a>[python-version](#input_python-version) | string |  false   |                 `"3.11.5"`                 |            python version            |
+| <a name="input_python-version"></a>[python-version](#input_python-version) | string |  false   |                 `"3.12.0"`                 |            python version            |
 |              <a name="input_stack"></a>[stack](#input_stack)               | string |   true   |                                            |         pulumi stack to use          |
 |              <a name="input_token"></a>[token](#input_token)               | string |   true   |                                            |         pulumi access token          |
-|           <a name="input_version"></a>[version](#input_version)            | string |  false   |                 `"3.88.1"`                 |      pulumi version to install       |
+|           <a name="input_version"></a>[version](#input_version)            | string |  false   |                 `"3.89.0"`                 |      pulumi version to install       |
 |           <a name="input_workdir"></a>[workdir](#input_workdir)            | string |  false   |                   `"."`                    |       change working directory       |
 
 <!-- AUTO-DOC-INPUT:END -->
