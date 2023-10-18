@@ -1,3 +1,10 @@
+## 0.5.9 (2023-10-18)
+
+### Fix
+
+- **pre-commit-monorepo**: use python and pre-commit versions in cache key
+- **pre-commit**: use python and pre-commit versions in cache key
+
 ## 0.5.8 (2023-10-18)
 
 ### Fix
