@@ -1,3 +1,9 @@
+## 0.5.8 (2023-10-18)
+
+### Fix
+
+- **deps**: update dependency pulumi to v3.89.0 (#20)
+
 ## 0.5.7 (2023-10-18)
 
 ### Fix
