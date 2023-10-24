@@ -59,6 +59,15 @@ runs:
       working-directory: ${{ inputs.workdir }}
       run: echo "$(poetry env info --path)/bin" >> "$GITHUB_PATH"
 
+    - name: Setup Pulumi cache
+      uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
+      with:
+        path: ~/.pulumi/plugins
+        key: pulumi-plugins-${{ hashFiles(format('{0}/poetry.lock', inputs.workdir)) }}
+        restore-keys: |
+          pulumi-plugins-
+          pulumi-
+
     - name: Preview changes
       uses: pulumi/actions@1d3ebd326317f249313706eeb489c9ed7c036443 # v4.5.0
       with:
