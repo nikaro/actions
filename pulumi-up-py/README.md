@@ -23,7 +23,7 @@ GitHub Action that runs `pulumi up` on a project using the Python SDK and Poetry
 | <a name="input_python-version"></a>[python-version](#input_python-version) | string |  false   | `"3.12.0"` |            python version            |
 |              <a name="input_stack"></a>[stack](#input_stack)               | string |   true   |            |         pulumi stack to use          |
 |              <a name="input_token"></a>[token](#input_token)               | string |   true   |            |         pulumi access token          |
-|           <a name="input_version"></a>[version](#input_version)            | string |  false   | `"3.89.0"` |      pulumi version to install       |
+|           <a name="input_version"></a>[version](#input_version)            | string |  false   | `"3.90.0"` |      pulumi version to install       |
 |           <a name="input_workdir"></a>[workdir](#input_workdir)            | string |  false   |   `"."`    |       change working directory       |
 
 <!-- AUTO-DOC-INPUT:END -->
