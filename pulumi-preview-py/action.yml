@@ -29,7 +29,7 @@ inputs:
     description: pulumi version to install
     required: false
     # renovate: datasource=pypi depName=pulumi
-    default: 3.89.0
+    default: 3.90.0
   workdir:
     description: change working directory
     required: false
