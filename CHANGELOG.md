@@ -1,3 +1,9 @@
+## 0.7.2 (2023-10-24)
+
+### Fix
+
+- **pulumi**: fix setup-go action url
+
 ## 0.7.1 (2023-10-24)
 
 ### Refactor
