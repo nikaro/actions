@@ -1,3 +1,10 @@
+## 0.7.1 (2023-10-24)
+
+### Refactor
+
+- **pre-commit-monorepo**: remove default fixed python version
+- **pre-commit**: remove default fixed python version
+
 ## 0.7.0 (2023-10-24)
 
 ### Feat
