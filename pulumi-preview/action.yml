@@ -1,0 +1,93 @@
+name: pulumi-preview
+description: Run pulumi preview
+
+inputs:
+  backend:
+    description: pulumi backend url to log in to
+    required: false
+  no-changes:
+    description: fails if any changes is planned
+    required: false
+    default: ${{ endsWith(github.actor, '[bot]') }}
+  github-token:
+    description: github token used to post comments and fetch plugins
+    required: false
+    default: ${{ github.token }}
+  runtime:
+    description: pulumi runtime (eg. python, nodejs, go, etc.)
+    required: false
+    default: python
+  runtime-cache:
+    description: pulumi runtime package maangere for cache setup (eg. pip, npm, etc.)
+    required: false
+    default: pip
+  runtime-deps-file:
+    description: pulumi dependencies file name (eg. requirements.txt for python runtime)
+    required: false
+    default: requirements.txt
+  runtime-version:
+    description: pulumi runtime version (eg. '3.12.0' for Python)
+    required: false
+  stack:
+    description: pulumi stack to use
+    required: true
+  token:
+    description: pulumi access token
+    required: true
+  version:
+    description: pulumi version to install
+    required: false
+    # renovate: datasource=pypi depName=pulumi
+    default: 3.90.0
+  workdir:
+    description: change working directory
+    required: false
+    default: .
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Python
+      if: inputs.runtime == 'python'
+      uses: actions/setup-python@65d7f2d534ac1bc67fcd62888c5f4f3d2cb2b236 # v4.7.1
+      with:
+        python-version: ${{ inputs.runtime-version }}
+        cache: ${{ inputs.runtime-cache }}
+
+    - name: Setup Node
+      if: inputs.runtime == 'nodejs'
+      uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65 # v4.0.0
+      with:
+        node-version: ${{ inputs.runtime-version }}
+        cache: ${{ inputs.runtime-cache }}
+
+    - name: Setup Go
+      if: inputs.runtime == 'go'
+      uses: actions/setup-node@93397bea11091df50f3d7e59dc26a7711a8bcfbe # v4.1.0
+      with:
+        go-version: ${{ inputs.runtime-version }}
+
+    - name: Setup Pulumi cache
+      uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
+      with:
+        path: ~/.pulumi/plugins
+        key: pulumi-plugins-${{ hashFiles(format('{0}/{1}', inputs.workdir, inputs.runtime-deps-file)) }}
+        restore-keys: |
+          pulumi-plugins-
+          pulumi-
+
+    - name: Preview changes
+      uses: pulumi/actions@1d3ebd326317f249313706eeb489c9ed7c036443 # v4.5.0
+      with:
+        cloud-url: ${{ inputs.backend }}
+        command: preview
+        comment-on-pr: true
+        comment-on-summary: true
+        expect-no-changes: ${{ inputs.no-changes }}
+        github-token: ${{ inputs.github-token }}
+        pulumi-version: ${{ inputs.version }}
+        stack-name: ${{ inputs.stack }}
+        work-dir: ${{ inputs.workdir }}
+      env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+        PULUMI_ACCESS_TOKEN: ${{ inputs.token }}
