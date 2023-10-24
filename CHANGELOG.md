@@ -1,3 +1,10 @@
+## 0.7.0 (2023-10-24)
+
+### Feat
+
+- add pulumi-up action
+- add pulumi-preview action
+
 ## 0.6.0 (2023-10-24)
 
 ### Feat
