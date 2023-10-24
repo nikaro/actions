@@ -9,6 +9,10 @@ inputs:
     description: fails if any changes is planned
     required: false
     default: ${{ endsWith(github.actor, '[bot]') }}
+  github-token:
+    description: github token used to post comments and fetch plugins
+    required: false
+    default: ${{ github.token }}
   poetry-version:
     description: poetry version
     required: false
@@ -71,13 +75,15 @@ runs:
     - name: Preview changes
       uses: pulumi/actions@1d3ebd326317f249313706eeb489c9ed7c036443 # v4.5.0
       with:
-        pulumi-version: ${{ inputs.version }}
-        work-dir: ${{ inputs.workdir }}
-        command: preview
         cloud-url: ${{ inputs.backend }}
-        stack-name: ${{ inputs.stack }}
+        command: preview
         comment-on-pr: true
         comment-on-summary: true
         expect-no-changes: ${{ inputs.no-changes }}
+        github-token: ${{ inputs.github-token }}
+        pulumi-version: ${{ inputs.version }}
+        stack-name: ${{ inputs.stack }}
+        work-dir: ${{ inputs.workdir }}
       env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}
         PULUMI_ACCESS_TOKEN: ${{ inputs.token }}
