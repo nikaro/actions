@@ -1,3 +1,12 @@
+## 0.6.0 (2023-10-24)
+
+### Feat
+
+- **pulumi-up-py**: allow to pass custom github token
+- **pulumi-preview-py**: allow to pass custom github token
+- **pulumi-up-py**: add pulumi plugins cache
+- **pulumi-preview-py**: add pulumi plugins cache
+
 ## 0.5.11 (2023-10-24)
 
 ### Fix
