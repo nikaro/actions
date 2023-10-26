@@ -25,6 +25,11 @@ repos:
     rev: 0.27.0
     hooks:
       - id: check-github-actions
+        files: >
+          (?x)^(
+            (.+/)?action\.(yml|yaml)|
+            \.github/actions/(.+/)?action\.(yml|yaml)
+          )$
       - id: check-github-workflows
       - id: check-renovate
 
