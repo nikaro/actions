@@ -1,3 +1,9 @@
+## 0.7.4 (2023-10-26)
+
+### Refactor
+
+- **pulumi**: cache the whole ~/.pulumi directory
+
 ## 0.7.3 (2023-10-25)
 
 ### Fix
