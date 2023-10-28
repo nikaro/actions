@@ -7,7 +7,7 @@
     "helpers:pinGitHubActionDigests",
     "regexManagers:dockerfileVersions",
     "regexManagers:githubActionsVersions",
-    "schedule:daily",
+    "schedule:weekly",
     ":automergeAll",
     ":disableRateLimiting",
     ":enablePreCommit",
