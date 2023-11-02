@@ -1,3 +1,10 @@
+## 1.0.0 (2023-11-02)
+
+### Feat
+
+- **pulumi**: remove poetry only pulumi actions
+- **pulumi**: add diff flag option
+
 ## 0.7.6 (2023-10-28)
 
 ### Fix
