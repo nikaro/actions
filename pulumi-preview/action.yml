@@ -9,6 +9,10 @@ inputs:
     description: fails if any changes is planned
     required: false
     default: ${{ endsWith(github.actor, '[bot]') }}
+  diff:
+    description: show detailed changes diff
+    required: false
+    default: "true"
   github-token:
     description: github token used to post comments and fetch plugins
     required: false
@@ -83,6 +87,7 @@ runs:
         command: preview
         comment-on-pr: true
         comment-on-summary: true
+        diff: ${{ inputs.diff }}
         expect-no-changes: ${{ inputs.no-changes }}
         github-token: ${{ inputs.github-token }}
         pulumi-version: ${{ inputs.version }}
