@@ -19,6 +19,7 @@ GitHub Action that runs `pulumi up` on a project using the Python SDK and Poetry
 |                                        INPUT                                        |  TYPE  | REQUIRED |         DEFAULT         |                                DESCRIPTION                                |
 |-------------------------------------------------------------------------------------|--------|----------|-------------------------|---------------------------------------------------------------------------|
 |                <a name="input_backend"></a>[backend](#input_backend)                | string |  false   |                         |                   pulumi backend url to log <br>in to                     |
+|                    <a name="input_diff"></a>[diff](#input_diff)                     | string |  false   |        `"true"`         |                        show detailed changes diff                         |
 |        <a name="input_github-token"></a>[github-token](#input_github-token)         | string |  false   | `"${{ github.token }}"` |         github token used to post <br>comments and fetch plugins          |
 |                <a name="input_runtime"></a>[runtime](#input_runtime)                | string |  false   |       `"python"`        |              pulumi runtime (eg. python, nodejs, go, etc.)                |
 |       <a name="input_runtime-cache"></a>[runtime-cache](#input_runtime-cache)       | string |  false   |         `"pip"`         | pulumi runtime package maangere for <br>cache setup (eg. pip, npm, etc.)  |
