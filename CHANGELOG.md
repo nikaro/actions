@@ -1,3 +1,9 @@
+## 1.0.2 (2023-11-09)
+
+### Fix
+
+- **pre-commit**: improve pre-commit caching (#27)
+
 ## 1.0.1 (2023-11-06)
 
 ### Fix
