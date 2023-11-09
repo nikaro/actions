@@ -31,10 +31,24 @@ runs:
       uses: actions/setup-python@65d7f2d534ac1bc67fcd62888c5f4f3d2cb2b236 # v4.7.1
       with:
         python-version: ${{ inputs.python-version }}
-        cache: pip
 
-    - name: Setup pre-commit cache
+    - name: Cache pre-commit virtualenv
       uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
+      with:
+        key: pre-commit-venv-py${{ steps.setup-python.outputs.python-version }}-pc${{ inputs.version }}
+        path: .venv
+
+    - name: Install pre-commit
+      shell: bash
+      run: |
+        python -m venv .venv
+        source .venv/bin/activate
+        python -m pip install pre-commit==${{ inputs.version }}
+        echo "$VIRTUAL_ENV/bin" >> $GITHUB_PATH
+        echo "VIRTUAL_ENV=$VIRTUAL_ENV" >> $GITHUB_ENV
+
+    - name: Restore pre-commit cache
+      uses: actions/cache/restore@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
       with:
         path: ~/.cache/pre-commit
         key: pre-commit-py${{ steps.setup-python.outputs.python-version }}-pc${{ inputs.version }}-${{ hashFiles('.pre-commit-config.yaml') }}
@@ -43,15 +57,15 @@ runs:
           pre-commit-py${{ steps.setup-python.outputs.python-version }}-
           pre-commit-
 
-    - name: Install pre-commit
-      shell: bash
-      run: pipx install pre-commit==${{ inputs.version }}
-      env:
-        PIPX_DEFAULT_PYTHON: ${{ steps.setup-python.outputs.python-path }}
-
-    - name: Instal pre-commit hooks
+    - name: Install pre-commit hooks
       shell: bash
       run: pre-commit install-hooks
+
+    - name: Save pre-commit cache
+      uses: actions/cache/save@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
+      with:
+        path: ~/.cache/pre-commit
+        key: pre-commit-py${{ steps.setup-python.outputs.python-version }}-pc${{ inputs.version }}-${{ hashFiles('.pre-commit-config.yaml') }}
 
     - name: Run pre-commit
       shell: bash
