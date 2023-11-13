@@ -54,12 +54,14 @@ runs:
           pre-commit-py${{ steps.setup-python.outputs.python-version }}-pc${{ inputs.version }}-
           pre-commit-py${{ steps.setup-python.outputs.python-version }}-
           pre-commit-
+      id: cache-pre-commit
 
     - name: Install pre-commit hooks
       shell: bash
       run: pre-commit install-hooks
 
     - name: Save pre-commit cache
+      if: steps.cache-pre-commit.outputs.cache-hit != true
       uses: actions/cache/save@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
       with:
         path: ~/.cache/pre-commit
