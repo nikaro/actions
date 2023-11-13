@@ -1,3 +1,9 @@
+## 1.0.4 (2023-11-13)
+
+### Fix
+
+- **pre-commit**: do not try to create cache if it already exists
+
 ## 1.0.3 (2023-11-13)
 
 ### Fix
