@@ -13,63 +13,40 @@ on:
   workflow_dispatch:
 
 env:
+  # renovate: datasource=go depName=github.com/tj-actions/auto-doc/v3
+  AUTO_DOC_VERSION: v3.3.0
   # renovate: datasource=pypi depName=commitizen
   COMMITIZEN_VERSION: 3.12.0
 
 jobs:
-  list-actions:
-    name: List Actions
-    runs-on: ubuntu-22.04
-    permissions:
-      contents: write
-    outputs:
-      actions: ${{ steps.list-dirs.outputs.actions }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-
-      - name: List directories
-        id: list-dirs
-        shell: python
-        run: |
-          import json
-          import os
-          from pathlib import Path
-          actions = [
-            d.name
-            for d in Path('.').iterdir()
-            if d.is_dir() and not d.name.startswith('.')
-          ]
-          with open(os.environ["GITHUB_OUTPUT"], mode="a") as gh_output:
-            print(f"actions={json.dumps(actions)}", file=gh_output)
-
   autodoc:
     name: Generate documentation
-    needs: [list-actions]
     runs-on: ubuntu-22.04
     permissions:
       contents: write
-    strategy:
-      max-parallel: 1
-      matrix:
-        action: ${{ fromJSON(needs.list-actions.outputs.actions) }}
     steps:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           ref: ${{ github.ref_name }}
 
-      - name: Run auto-doc
-        uses: tj-actions/auto-doc@6b64a7772f00c5ce34dcf762abda7b67bd4bded6 # v3.3.0
+      - name: Setup Go
+        uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe # v4.1.0
         with:
-          filename: ${{ matrix.action }}/action.yml
-          output: ${{ matrix.action }}/README.md
+          go-version: stable
 
-      - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@8756aa072ef5b4a080af5dc8fef36c5d586e521d # v5.0.0
-        with:
-          commit_message: "docs(${{ matrix.action }}): auto-update documentation"
-          file_pattern: "*/README.md"
+      - name: Install auto-doc
+        run: go install "github.com/tj-actions/auto-doc/v3@$AUTO_DOC_VERSION"
+
+      - name: Run auto-doc
+        run: |
+          for d in */; do
+            pushd "./$d"
+            auto-doc --filename ./actions.yml --output ./README.md
+            git commit -m "docs(${d%/}): auto-update documentation"
+            popd
+          done
+          git push
 
   release:
     name: Release
