@@ -60,7 +60,7 @@ jobs:
           ref: ${{ github.ref_name }}
 
       - name: Run auto-doc
-        uses: tj-actions/auto-doc@79f127db56b0797dcbf6dede5d6077f8c4594553 # v3.1.1
+        uses: tj-actions/auto-doc@6b64a7772f00c5ce34dcf762abda7b67bd4bded6 # v3.3.0
         with:
           filename: ${{ matrix.action }}/action.yml
           output: ${{ matrix.action }}/README.md
