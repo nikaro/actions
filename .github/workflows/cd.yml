@@ -42,7 +42,7 @@ jobs:
         run: |
           for d in */; do
             pushd "./$d"
-            auto-doc --filename ./actions.yml --output ./README.md
+            auto-doc --filename ./action.yml --output ./README.md
             git commit -m "docs(${d%/}): auto-update documentation"
             popd
           done
