@@ -43,7 +43,9 @@ jobs:
           for d in */; do
             pushd "./$d"
             auto-doc --filename ./action.yml --output ./README.md
-            git commit -m "docs(${d%/}): auto-update documentation"
+            git config --global user.name github-actions
+            git config --global user.email github-actions@github.com
+            git commit -am "docs(${d%/}): auto-update documentation"
             popd
           done
           git push
