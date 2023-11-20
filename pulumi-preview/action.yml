@@ -8,7 +8,7 @@ inputs:
   no-changes:
     description: fails if any changes is planned
     required: false
-    default: ${{ endsWith(github.actor, '[bot]') }}
+    default: "false"
   diff:
     description: show detailed changes diff
     required: false
