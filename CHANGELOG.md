@@ -1,3 +1,9 @@
+## 1.1.0 (2023-11-20)
+
+### Feat
+
+- **pulumi-preview**: do not expect no changes on pr from bots
+
 ## 1.0.5 (2023-11-18)
 
 ### Fix
