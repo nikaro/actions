@@ -50,7 +50,7 @@ jobs:
           git config --global user.email github-actions@github.com
           for d in */; do
             pushd "./$d"
-            auto-doc --filename ./action.yml --output ./README.md
+            auto-doc --filename ./action.yml
             git add .
             git diff --quiet --cached || git commit -m "docs(${d%/}): auto-update documentation"
             popd
