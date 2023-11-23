@@ -8,6 +8,8 @@ inputs:
   python-version:
     description: python version
     required: false
+    # renovate: datasource=github-releases depName=actions/python-versions
+    default: 3.11.6
   skip:
     description: comma separated list of hooks id to skip
     required: false
