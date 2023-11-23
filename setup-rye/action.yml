@@ -1,0 +1,37 @@
+name: setup-rye
+description: Install Rye, the package manager for Python
+
+inputs:
+  install_option:
+    description: Options to be passed to the installer
+    required: false
+    default: --yes
+  version:
+    description: Rye version to install
+    required: false
+    # renovate: datasource=githu-releases depName=mitsuhiko/rye
+    default: 0.15.2
+  toolchain:
+    description: Python interpreter that should be used as the internal interpreter
+    required: false
+
+runs:
+  using: composite
+  steps:
+    - name: Cache Rye installation
+      uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
+      with:
+        path: ~/.rye
+        key: ${{ runner.os }}-rye-${{ inputs.version }}
+
+    - name: Install Rye
+      shell: bash
+      run: curl -sSf https://rye-up.com/get | bash
+      env:
+        RYE_INSTALL_OPTION: ${{ inputs.install_option }}
+        RYE_VERSION: ${{ inputs.version }}
+        RYE_TOOLCHAIN: ${{ inputs.toolchain }}
+
+    - name: Append Rye to PATH
+      shell: bash
+      run: echo "$HOME/.rye/shims" >> "$GITHUB_PATH"
