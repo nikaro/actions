@@ -16,6 +16,10 @@
   ],
   "packageRules": [
     {
+      "matchDepNames": ["actions/python-versions"],
+      "extractVersion": "^(?<version>\\d+\\.\\d+\\.\\d+)"
+    },
+    {
       "groupName": "github actions",
       "matchFileNames": [".github/**"],
       "semanticCommitType": "ci"
