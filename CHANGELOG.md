@@ -1,3 +1,9 @@
+## 1.2.0 (2023-11-23)
+
+### Feat
+
+- **setup-rye**: add new setup-rye action
+
 ## 1.1.0 (2023-11-20)
 
 ### Feat
