@@ -1,3 +1,9 @@
+## 1.2.1 (2023-11-23)
+
+### Fix
+
+- **pre-commit**: fix cache-hit condition check (#35)
+
 ## 1.2.0 (2023-11-23)
 
 ### Feat
