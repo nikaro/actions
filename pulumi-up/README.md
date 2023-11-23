@@ -24,7 +24,7 @@ GitHub Action that runs `pulumi up` on a project using the Python SDK and Poetry
 |      runtime      | string |  false   |       `"python"`        |              pulumi runtime (eg. python, nodejs, go, etc.)                |
 |   runtime-cache   | string |  false   |         `"pip"`         | pulumi runtime package maangere for cache <br>setup (eg. pip, npm, etc.)  |
 | runtime-deps-file | string |  false   |  `"requirements.txt"`   | pulumi dependencies file name (eg. requirements.txt for python runtime)   |
-|  runtime-version  | string |  false   |                         |             pulumi runtime version (eg. '3.12.0' for Python)              |
+|  runtime-version  | string |  false   |       `"3.12.0"`        |             pulumi runtime version (eg. '3.12.0' for Python)              |
 |       stack       | string |   true   |                         |                            pulumi stack to use                            |
 |       token       | string |   true   |                         |                            pulumi access token                            |
 |      version      | string |  false   |       `"3.94.2"`        |                         pulumi version to install                         |
