@@ -19,7 +19,7 @@ GitHub Action that runs pre-commit hooks in a monorepo context, ie. on files of 
 |     INPUT      |  TYPE  | REQUIRED |         DEFAULT         |                  DESCRIPTION                  |
 |----------------|--------|----------|-------------------------|-----------------------------------------------|
 |      args      | string |  false   |                         |      arguments to pass to pre-commit run      |
-| python-version | string |  false   |       `"3.11.6"`        |                python version                 |
+| python-version | string |  false   |       `"3.12.0"`        |                python version                 |
 |      skip      | string |  false   | `"no-commit-to-branch"` | comma separated list of hooks id <br>to skip  |
 |    version     | string |  false   |        `"3.5.0"`        |              pre-commit version               |
 |    workdir     | string |   true   |                         |  change working directory for pre-commit run  |
