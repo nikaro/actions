@@ -29,7 +29,7 @@ inputs:
     description: pulumi runtime version (eg. '3.12.0' for Python)
     required: false
     # renovate: datasource=github-releases depName=python packageName=actions/python-versions
-    default: 3.12.0
+    default: 3.12.1
   stack:
     description: pulumi stack to use
     required: true
