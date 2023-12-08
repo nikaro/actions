@@ -1,3 +1,9 @@
+## 1.2.5 (2023-12-08)
+
+### Fix
+
+- **deps**: update dependency python to v3.12.1 (#43)
+
 ## 1.2.4 (2023-12-08)
 
 ### Fix
