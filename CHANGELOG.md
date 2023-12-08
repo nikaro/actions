@@ -1,3 +1,9 @@
+## 1.2.4 (2023-12-08)
+
+### Fix
+
+- **deps**: update dependency pulumi to v3.96.2 (#44)
+
 ## 1.2.3 (2023-12-04)
 
 ### Fix
