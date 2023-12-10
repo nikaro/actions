@@ -1,3 +1,10 @@
+## 1.2.6 (2023-12-10)
+
+### Fix
+
+- **deps**: update actions/setup-python action to v5 (#47)
+- **deps**: update actions/setup-go action to v5 (#46)
+
 ## 1.2.5 (2023-12-08)
 
 ### Fix
