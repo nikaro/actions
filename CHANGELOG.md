@@ -1,3 +1,9 @@
+## 1.2.7 (2023-12-11)
+
+### Fix
+
+- **deps**: update dependency pre-commit to v3.6.0 (#48)
+
 ## 1.2.6 (2023-12-10)
 
 ### Fix
