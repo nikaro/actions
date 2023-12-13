@@ -1,0 +1,24 @@
+name: getsops
+description: Install SOPS
+
+inputs:
+  version:
+    description: sops version
+    required: false
+    # renovate: datasource=github-releases depName=getsops/sops
+    default: 3.8.1
+
+runs:
+  using: composite
+  steps:
+    - name: Cache SOPS
+      uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
+      with:
+        key: linux-amd64-sops-${{ inputs.version }}
+        path: /usr/local/bin/sops
+
+    - name: Setup SOPS
+      shell: bash
+      run: |
+        sudo curl -sSLo /usr/local/bin/sops https://github.com/getsops/sops/releases/download/v${{ inputs.version }}/sops-v${{ inputs.version }}.linux.amd64
+        sudo chmod +x /usr/local/bin/sops
