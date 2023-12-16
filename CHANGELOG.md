@@ -1,3 +1,9 @@
+## 1.3.1 (2023-12-16)
+
+### Fix
+
+- **deps**: update dependency pulumi to v3.97.0 (#49)
+
 ## 1.3.0 (2023-12-13)
 
 ### Feat
