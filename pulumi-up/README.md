@@ -27,7 +27,7 @@ GitHub Action that runs `pulumi up` on a project using the Python SDK and Poetry
 |  runtime-version  | string |  false   |       `"3.12.1"`        |             pulumi runtime version (eg. '3.12.0' for Python)              |
 |       stack       | string |   true   |                         |                            pulumi stack to use                            |
 |       token       | string |   true   |                         |                            pulumi access token                            |
-|      version      | string |  false   |       `"3.96.2"`        |                         pulumi version to install                         |
+|      version      | string |  false   |       `"3.97.0"`        |                         pulumi version to install                         |
 |      workdir      | string |  false   |          `"."`          |                         change working directory                          |
 
 <!-- AUTO-DOC-INPUT:END -->
