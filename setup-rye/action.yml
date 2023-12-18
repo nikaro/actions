@@ -10,7 +10,7 @@ inputs:
     description: Rye version to install
     required: false
     # renovate: datasource=github-releases depName=rye packageName=mitsuhiko/rye
-    default: 0.15.2
+    default: 0.16.0
   toolchain:
     description: Python interpreter that should be used as the internal interpreter
     required: false
