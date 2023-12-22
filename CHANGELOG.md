@@ -1,3 +1,9 @@
+## 1.3.3 (2023-12-22)
+
+### Fix
+
+- **deps**: update actions/setup-node action to v4.0.1 (#51)
+
 ## 1.3.2 (2023-12-18)
 
 ### Fix
