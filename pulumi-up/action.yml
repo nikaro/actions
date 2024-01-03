@@ -79,7 +79,7 @@ runs:
         restore-keys: pulumi-
 
     - name: Apply changes
-      uses: pulumi/actions@1d3ebd326317f249313706eeb489c9ed7c036443 # v4.5.0
+      uses: pulumi/actions@ccd2d6b5dc3c5617452058751b6a065bbe001a13 # v5.0.0
       with:
         cloud-url: ${{ inputs.backend }}
         command: up
