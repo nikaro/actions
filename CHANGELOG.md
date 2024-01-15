@@ -1,3 +1,9 @@
+## 1.3.8 (2024-01-15)
+
+### Fix
+
+- **deps**: update dependency pulumi to v3.101.1 (#57)
+
 ## 1.3.7 (2024-01-15)
 
 ### Fix
