@@ -35,7 +35,7 @@ runs:
         python-version: ${{ inputs.python-version }}
 
     - name: Cache pre-commit virtualenv
-      uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3.3.3
+      uses: actions/cache@13aacd865c20de90d75de3b17ebe84f7a17d57d2 # v4.0.0
       with:
         key: pre-commit-venv-py${{ steps.setup-python.outputs.python-version }}-pc${{ inputs.version }}
         path: .venv
@@ -50,7 +50,7 @@ runs:
         echo "VIRTUAL_ENV=$VIRTUAL_ENV" >> $GITHUB_ENV
 
     - name: Restore pre-commit cache
-      uses: actions/cache/restore@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3.3.3
+      uses: actions/cache/restore@13aacd865c20de90d75de3b17ebe84f7a17d57d2 # v4.0.0
       with:
         path: ~/.cache/pre-commit
         key: pre-commit-py${{ steps.setup-python.outputs.python-version }}-pc${{ inputs.version }}-${{ hashFiles('.pre-commit-config.yaml') }}
@@ -66,7 +66,7 @@ runs:
 
     - name: Save pre-commit cache
       if: steps.cache-pre-commit.outputs.cache-hit != 'true'
-      uses: actions/cache/save@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3.3.3
+      uses: actions/cache/save@13aacd865c20de90d75de3b17ebe84f7a17d57d2 # v4.0.0
       with:
         path: ~/.cache/pre-commit
         key: pre-commit-py${{ steps.setup-python.outputs.python-version }}-pc${{ inputs.version }}-${{ hashFiles('.pre-commit-config.yaml') }}
