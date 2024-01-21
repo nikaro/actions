@@ -1,3 +1,9 @@
+## 1.3.9 (2024-01-21)
+
+### Fix
+
+- **deps**: update actions/cache action to v4 (#58)
+
 ## 1.3.8 (2024-01-15)
 
 ### Fix
