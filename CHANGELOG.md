@@ -1,3 +1,9 @@
+## 1.3.13 (2024-01-28)
+
+### Fix
+
+- **deps**: update pulumi/actions action to v5.1.1 (#62)
+
 ## 1.3.12 (2024-01-28)
 
 ### Fix
