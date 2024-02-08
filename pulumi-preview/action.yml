@@ -33,7 +33,7 @@ inputs:
     description: pulumi runtime version (eg. '3.12.0' for Python)
     required: false
     # renovate: datasource=github-releases depName=python packageName=actions/python-versions
-    default: 3.12.1
+    default: 3.12.2
   stack:
     description: pulumi stack to use
     required: true
@@ -44,7 +44,7 @@ inputs:
     description: pulumi version to install
     required: false
     # renovate: datasource=pypi depName=pulumi
-    default: 3.104.2
+    default: 3.105.0
   workdir:
     description: change working directory
     required: false
@@ -62,7 +62,7 @@ runs:
 
     - name: Setup Node
       if: inputs.runtime == 'nodejs'
-      uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # v4.0.1
+      uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
       with:
         node-version: ${{ inputs.runtime-version }}
         cache: ${{ inputs.runtime-cache }}
