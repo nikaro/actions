@@ -25,10 +25,10 @@ GitHub Action that runs `pulumi preview` on a project using the Python SDK and P
 |      runtime      | string |  false   |       `"python"`        |              pulumi runtime (eg. python, nodejs, go, etc.)                |
 |   runtime-cache   | string |  false   |         `"pip"`         | pulumi runtime package maangere for cache <br>setup (eg. pip, npm, etc.)  |
 | runtime-deps-file | string |  false   |  `"requirements.txt"`   | pulumi dependencies file name (eg. requirements.txt for python runtime)   |
-|  runtime-version  | string |  false   |       `"3.12.1"`        |             pulumi runtime version (eg. '3.12.0' for Python)              |
+|  runtime-version  | string |  false   |       `"3.12.2"`        |             pulumi runtime version (eg. '3.12.0' for Python)              |
 |       stack       | string |   true   |                         |                            pulumi stack to use                            |
 |       token       | string |   true   |                         |                            pulumi access token                            |
-|      version      | string |  false   |       `"3.104.2"`       |                         pulumi version to install                         |
+|      version      | string |  false   |       `"3.105.0"`       |                         pulumi version to install                         |
 |      workdir      | string |  false   |          `"."`          |                         change working directory                          |
 
 <!-- AUTO-DOC-INPUT:END -->
