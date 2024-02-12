@@ -11,9 +11,6 @@ inputs:
     required: false
     # renovate: datasource=github-releases depName=rye packageName=mitsuhiko/rye
     default: 0.22.0
-  toolchain:
-    description: Python interpreter that should be used as the internal interpreter
-    required: false
 
 runs:
   using: composite
@@ -30,7 +27,6 @@ runs:
       env:
         RYE_INSTALL_OPTION: ${{ inputs.install_option }}
         RYE_VERSION: ${{ inputs.version }}
-        RYE_TOOLCHAIN: ${{ inputs.toolchain }}
 
     - name: Append Rye to PATH
       shell: bash
