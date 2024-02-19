@@ -17,6 +17,6 @@ GitHub Action that setups [Rye](https://rye-up.com).
 |     INPUT      |  TYPE  | REQUIRED |  DEFAULT   |                DESCRIPTION                 |
 |----------------|--------|----------|------------|--------------------------------------------|
 | install_option | string |  false   | `"--yes"`  | Options to be passed to the <br>installer  |
-|    version     | string |  false   | `"0.22.0"` |           Rye version to install           |
+|    version     | string |  false   | `"0.24.0"` |           Rye version to install           |
 
 <!-- AUTO-DOC-INPUT:END -->
