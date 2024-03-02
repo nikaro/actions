@@ -16,7 +16,7 @@ env:
   # renovate: datasource=go depName=github.com/tj-actions/auto-doc/v3
   AUTO_DOC_VERSION: v3.4.1
   # renovate: datasource=pypi depName=commitizen
-  COMMITIZEN_VERSION: 3.15.0
+  COMMITIZEN_VERSION: 3.16.0
 
 jobs:
   ci:
