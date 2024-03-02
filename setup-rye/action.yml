@@ -10,13 +10,13 @@ inputs:
     description: Rye version to install
     required: false
     # renovate: datasource=github-releases depName=rye packageName=mitsuhiko/rye
-    default: 0.26.0
+    default: 0.27.0
 
 runs:
   using: composite
   steps:
     - name: Cache Rye installation
-      uses: actions/cache@13aacd865c20de90d75de3b17ebe84f7a17d57d2 # v4.0.0
+      uses: actions/cache@ab5e6d0c87105b4c9c2047343972218f562e4319 # v4.0.1
       with:
         path: ~/.rye
         key: ${{ runner.os }}-rye-${{ inputs.version }}
