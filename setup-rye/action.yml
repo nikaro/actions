@@ -10,7 +10,7 @@ inputs:
     description: Rye version to install
     required: false
     # renovate: datasource=github-releases depName=rye packageName=mitsuhiko/rye
-    default: 0.27.0
+    default: 0.28.0
 
 runs:
   using: composite
