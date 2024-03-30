@@ -40,7 +40,7 @@ inputs:
     description: pulumi version to install
     required: false
     # renovate: datasource=pypi depName=pulumi
-    default: 3.111.1
+    default: 3.112.0
   workdir:
     description: change working directory
     required: false
@@ -51,7 +51,7 @@ runs:
   steps:
     - name: Setup Python
       if: inputs.runtime == 'python'
-      uses: actions/setup-python@0a5c61591373683505ea898e09a3ea4f39ef2b9c # v5.0.0
+      uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d # v5.1.0
       with:
         python-version: ${{ inputs.runtime-version }}
         cache: ${{ inputs.runtime-cache }}
@@ -79,7 +79,7 @@ runs:
         restore-keys: pulumi-
 
     - name: Apply changes
-      uses: pulumi/actions@76683de37aa44910871ba6cef36557780f2e41d1 # v5.1.1
+      uses: pulumi/actions@4b4f7c2d7fc9b1f9db3cc704398a9c25d43da056 # v5.2.0
       with:
         cloud-url: ${{ inputs.backend }}
         command: up
