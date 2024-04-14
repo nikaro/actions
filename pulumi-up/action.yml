@@ -29,7 +29,7 @@ inputs:
     description: pulumi runtime version (eg. '3.12.0' for Python)
     required: false
     # renovate: datasource=github-releases depName=python packageName=actions/python-versions
-    default: 3.12.2
+    default: 3.12.3
   stack:
     description: pulumi stack to use
     required: true
@@ -79,7 +79,7 @@ runs:
         restore-keys: pulumi-
 
     - name: Apply changes
-      uses: pulumi/actions@4b4f7c2d7fc9b1f9db3cc704398a9c25d43da056 # v5.2.0
+      uses: pulumi/actions@0806784f9f774cbff8fe12c5592350e866c7cd8d # v5.2.3
       with:
         cloud-url: ${{ inputs.backend }}
         command: up
