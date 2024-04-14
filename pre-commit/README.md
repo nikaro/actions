@@ -19,7 +19,7 @@ GitHub Action that runs pre-commit hooks.
 |     INPUT      |  TYPE  | REQUIRED |         DEFAULT         |                  DESCRIPTION                  |
 |----------------|--------|----------|-------------------------|-----------------------------------------------|
 |      args      | string |  false   |     `"--all-files"`     |      arguments to pass to pre-commit run      |
-| python-version | string |  false   |       `"3.12.2"`        |                python version                 |
+| python-version | string |  false   |       `"3.12.3"`        |                python version                 |
 |      skip      | string |  false   | `"no-commit-to-branch"` | comma separated list of hooks id <br>to skip  |
 |    version     | string |  false   |        `"3.7.0"`        |              pre-commit version               |
 |    workdir     | string |  false   |          `"."`          |  change working directory for pre-commit run  |
