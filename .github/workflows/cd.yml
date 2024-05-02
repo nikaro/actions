@@ -16,7 +16,7 @@ env:
   # renovate: datasource=go depName=github.com/tj-actions/auto-doc/v3
   AUTO_DOC_VERSION: v3.5.0
   # renovate: datasource=pypi depName=commitizen
-  COMMITIZEN_VERSION: 3.24.0
+  COMMITIZEN_VERSION: 3.25.0
 
 jobs:
   ci:
@@ -37,7 +37,7 @@ jobs:
           ref: ${{ github.ref_name }}
 
       - name: Setup Go
-        uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
+        uses: actions/setup-go@cdcb36043654635271a94b9a6d1392de5bb323a7 # v5.0.1
         with:
           cache: false
           go-version: stable
