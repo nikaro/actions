@@ -15,11 +15,6 @@
       "matchPackageNames": ["actions/python-versions"],
       "allowedVersions": "!/(alpha|beta|rc)/",
       "extractVersion": "^(?<version>\\d+\\.\\d+\\.\\d+(-\\D+)?)"
-    },
-    {
-      "groupName": "all",
-      "groupSlug": "all",
-      "matchFileNames": ["!(.github/)**", "!(.pre-commit-config.yaml)"]
     }
   ]
 }
