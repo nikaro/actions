@@ -19,7 +19,7 @@
     {
       "groupName": "all",
       "groupSlug": "all",
-      "matchFileNames": ["!.github/**", "!.pre-commit-config.yaml"]
+      "matchFileNames": ["!(.github/)**", "!(.pre-commit-config.yaml)"]
     }
   ]
 }
