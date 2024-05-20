@@ -1,15 +1,8 @@
 name: CD
 
 on:
-  push:
-    branches: [main]
-    paths-ignore:
-      - .github/**
-      - .cz.toml
-      - .gitignore
-      - .pre-commit-config.yaml
-      - .yamllint.yml
-      - CHANGELOG.md
+  schedule:
+    - cron: "0 0 * * 3" # At 00:00 on Wednesday
   workflow_dispatch:
 
 env:
@@ -61,7 +54,6 @@ jobs:
   release:
     name: Release
     needs: [autodoc]
-    if: "!startsWith(github.event.head_commit.message, 'bump:')"
     runs-on: ubuntu-22.04
     permissions:
       contents: write
@@ -80,6 +72,7 @@ jobs:
           dry_run: true
 
       - name: Bump
+        id: cz
         uses: commitizen-tools/commitizen-action@1f11eb222996406681d2bfa1eb3d997eca46557c # 0.21.0
         with:
           github_token: ${{ github.token }}
@@ -91,4 +84,4 @@ jobs:
         with:
           bodyFile: _changelog.md
           skipIfReleaseExists: true
-          tag: ${{ env.REVISION }}
+          tag: ${{ steps.cz.outputs.version }}
