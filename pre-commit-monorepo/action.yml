@@ -28,7 +28,7 @@ runs:
       id: setup-python
       uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d # v5.1.0
       with:
-        python-version: ${{ inputs.python-version != 'latest' && inputs.python-version }}
+        python-version: ${{ inputs.python-version != 'latest' && inputs.python-version || '' }}
         check-latest: ${{ inputs.python-version == 'latest' && 'true' }}
 
     - name: Get pre-commit version

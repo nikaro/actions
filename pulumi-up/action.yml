@@ -51,7 +51,7 @@ runs:
       if: inputs.runtime == 'python'
       uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d # v5.1.0
       with:
-        python-version: ${{ inputs.runtime-version != 'latest' && inputs.runtime-version }}
+        python-version: ${{ inputs.runtime-version != 'latest' && inputs.runtime-version || '' }}
         check-latest: ${{ inputs.runtime-version == 'latest' && 'true' }}
         cache: ${{ inputs.runtime-cache }}
 
@@ -66,7 +66,7 @@ runs:
       if: inputs.runtime == 'go'
       uses: actions/setup-go@cdcb36043654635271a94b9a6d1392de5bb323a7 # v5.0.1
       with:
-        go-version: ${{ inputs.runtime-version != 'latest' && inputs.runtime-version }}
+        go-version: ${{ inputs.runtime-version != 'latest' && inputs.runtime-version || '' }}
         check-latest: ${{ inputs.runtime-version == 'latest' && 'true' }}
 
     - name: Setup Pulumi cache
@@ -87,7 +87,7 @@ runs:
         comment-on-summary: true
         diff: ${{ inputs.diff }}
         github-token: ${{ inputs.github-token }}
-        pulumi-version: ${{ inputs.version != 'latest' && inputs.version }}
+        pulumi-version: ${{ inputs.version != 'latest' && inputs.version || '' }}
         stack-name: ${{ inputs.stack }}
         work-dir: ${{ inputs.workdir }}
       env:
