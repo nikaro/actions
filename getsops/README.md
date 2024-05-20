@@ -16,8 +16,8 @@ GitHub Action that install [SOPS](https://github.com/getsops/sops/).
 
 <!-- AUTO-DOC-INPUT:START - Do not remove or modify this section -->
 
-|  INPUT  |  TYPE  | REQUIRED |  DEFAULT  | DESCRIPTION  |
-|---------|--------|----------|-----------|--------------|
-| version | string |  false   | `"3.8.1"` | sops version |
+|  INPUT  |  TYPE  | REQUIRED |  DEFAULT   | DESCRIPTION  |
+|---------|--------|----------|------------|--------------|
+| version | string |  false   | `"latest"` | sops version |
 
 <!-- AUTO-DOC-INPUT:END -->
