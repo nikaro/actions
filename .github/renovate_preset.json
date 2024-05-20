@@ -25,6 +25,10 @@
       "semanticCommitType": "ci"
     },
     {
+      "groupName": "go packages",
+      "matchFileNames": ["go.mod", "go.sum"]
+    },
+    {
       "groupName": "pre-commit",
       "matchFileNames": [".pre-commit-config.yaml"],
       "semanticCommitType": "ci"
