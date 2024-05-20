@@ -9,8 +9,7 @@ inputs:
   version:
     description: Rye version to install
     required: false
-    # renovate: datasource=github-releases depName=rye packageName=mitsuhiko/rye
-    default: 0.33.0
+    default: latest
 
 runs:
   using: composite
@@ -20,6 +19,9 @@ runs:
       with:
         path: ~/.rye
         key: ${{ runner.os }}-rye-${{ inputs.version }}
+        restore-keys: |
+          ${{ runner.os }}-rye-${{ inputs.version }}
+          ${{ runner.os }}-rye-
 
     - name: Install Rye
       shell: bash
