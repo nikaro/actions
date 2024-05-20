@@ -20,7 +20,7 @@
       "extractVersion": "^(?<version>\\d+\\.\\d+\\.\\d+)"
     },
     {
-      "groupName": "ci",
+      "groupName": "ci packages",
       "matchFileNames": [".github/**", ".pre-commit-config.yaml"],
       "semanticCommitType": "ci"
     },
