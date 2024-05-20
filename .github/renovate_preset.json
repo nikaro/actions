@@ -8,7 +8,6 @@
     "regexManagers:dockerfileVersions",
     "regexManagers:githubActionsVersions",
     "schedule:weekly",
-    ":automergeAll",
     ":disableRateLimiting",
     ":enablePreCommit",
     ":maintainLockFilesWeekly",
