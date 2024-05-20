@@ -8,8 +8,7 @@ inputs:
   python-version:
     description: python version
     required: false
-    # renovate: datasource=github-releases depName=python packageName=actions/python-versions
-    default: 3.12.3
+    default: latest
   skip:
     description: comma separated list of hooks id to skip
     required: false
@@ -17,8 +16,7 @@ inputs:
   version:
     description: pre-commit version
     required: false
-    # renovate: datasource=pypi depName=pre-commit
-    default: 3.7.1
+    default: latest
   workdir:
     description: change working directory for pre-commit run
     required: true
@@ -30,7 +28,19 @@ runs:
       id: setup-python
       uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d # v5.1.0
       with:
-        python-version: ${{ inputs.python-version }}
+        python-version: ${{ inputs.python-version != 'latest' && inputs.python-version }}
+        check-latest: ${{ inputs.python-version == 'latest' && 'true' }}
+
+    - name: Get pre-commit version
+      id: pre-commit-version
+      shell: bash
+      run: |
+        if [ "${{ inputs.version }}" = "latest" ]; then
+          version=$(python3 -m pip index versions pre-commit | sed -n 's/.*(\([^()]*\)).*/\1/p')
+        else
+          version=${{ inputs.version }}
+        fi
+        echo "version=$version" >> "$GITHUB_OUTPUT"
 
     - name: Cache pre-commit virtualenv
       uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2

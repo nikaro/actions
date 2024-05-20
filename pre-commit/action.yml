@@ -9,8 +9,7 @@ inputs:
   python-version:
     description: python version
     required: false
-    # renovate: datasource=github-releases depName=python packageName=actions/python-versions
-    default: 3.12.3
+    default: latest
   skip:
     description: comma separated list of hooks id to skip
     required: false
@@ -18,8 +17,7 @@ inputs:
   version:
     description: pre-commit version
     required: false
-    # renovate: datasource=pypi depName=pre-commit
-    default: 3.7.1
+    default: latest
   workdir:
     description: change working directory for pre-commit run
     required: false
@@ -32,12 +30,24 @@ runs:
       id: setup-python
       uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d # v5.1.0
       with:
-        python-version: ${{ inputs.python-version }}
+        python-version: ${{ inputs.python-version != 'latest' && inputs.python-version }}
+        check-latest: ${{ inputs.python-version == 'latest' && 'true' }}
+
+    - name: Get pre-commit version
+      id: pre-commit-version
+      shell: bash
+      run: |
+        if [ "${{ inputs.version }}" = "latest" ]; then
+          version=$(python3 -m pip index versions pre-commit | sed -n 's/.*(\([^()]*\)).*/\1/p')
+        else
+          version=${{ inputs.version }}
+        fi
+        echo "version=$version" >> "$GITHUB_OUTPUT"
 
     - name: Cache pre-commit virtualenv
       uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
       with:
-        key: pre-commit-venv-py${{ steps.setup-python.outputs.python-version }}-pc${{ inputs.version }}
+        key: pre-commit-venv-py${{ steps.setup-python.outputs.python-version }}-pc${{ steps.pre-commit-version.outputs.version }}
         path: .venv
 
     - name: Install pre-commit
@@ -45,7 +55,7 @@ runs:
       run: |
         python -m venv .venv
         source .venv/bin/activate
-        python -m pip install pre-commit==${{ inputs.version }}
+        python -m pip install pre-commit==${{ steps.pre-commit-version.outputs.version }}
         echo "$VIRTUAL_ENV/bin" >> $GITHUB_PATH
         echo "VIRTUAL_ENV=$VIRTUAL_ENV" >> $GITHUB_ENV
 
@@ -53,9 +63,9 @@ runs:
       uses: actions/cache/restore@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
       with:
         path: ~/.cache/pre-commit
-        key: pre-commit-py${{ steps.setup-python.outputs.python-version }}-pc${{ inputs.version }}-${{ hashFiles('.pre-commit-config.yaml') }}
+        key: pre-commit-py${{ steps.setup-python.outputs.python-version }}-pc${{ steps.pre-commit-version.outputs.version }}-${{ hashFiles('.pre-commit-config.yaml') }}
         restore-keys: |
-          pre-commit-py${{ steps.setup-python.outputs.python-version }}-pc${{ inputs.version }}-
+          pre-commit-py${{ steps.setup-python.outputs.python-version }}-pc${{ steps.pre-commit-version.outputs.version }}-
           pre-commit-py${{ steps.setup-python.outputs.python-version }}-
           pre-commit-
       id: cache-pre-commit
@@ -69,7 +79,7 @@ runs:
       uses: actions/cache/save@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
       with:
         path: ~/.cache/pre-commit
-        key: pre-commit-py${{ steps.setup-python.outputs.python-version }}-pc${{ inputs.version }}-${{ hashFiles('.pre-commit-config.yaml') }}
+        key: pre-commit-py${{ steps.setup-python.outputs.python-version }}-pc${{ steps.pre-commit-version.outputs.version }}-${{ hashFiles('.pre-commit-config.yaml') }}
 
     - name: Run pre-commit
       shell: bash
