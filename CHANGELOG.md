@@ -1,3 +1,16 @@
+## 1.4.0 (2024-05-20)
+
+### Feat
+
+- **pulumi**: install latest versions by default
+- **setup-rye**: install latest versions by default
+- **pre-commit**: install latest versions by default
+- **getsops**: use third party action to install release
+
+### Fix
+
+- latest conditional check empty value
+
 ## 1.3.23 (2024-05-20)
 
 ### Fix
