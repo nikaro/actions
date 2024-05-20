@@ -32,8 +32,7 @@ inputs:
   runtime-version:
     description: pulumi runtime version (eg. '3.12.0' for Python)
     required: false
-    # renovate: datasource=github-releases depName=python packageName=actions/python-versions
-    default: 3.12.3
+    default: latest
   stack:
     description: pulumi stack to use
     required: true
@@ -43,8 +42,7 @@ inputs:
   version:
     description: pulumi version to install
     required: false
-    # renovate: datasource=pypi depName=pulumi
-    default: 3.116.1
+    default: latest
   workdir:
     description: change working directory
     required: false
@@ -57,7 +55,8 @@ runs:
       if: inputs.runtime == 'python'
       uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d # v5.1.0
       with:
-        python-version: ${{ inputs.runtime-version }}
+        python-version: ${{ inputs.runtime-version != 'latest' && inputs.runtime-version }}
+        check-latest: ${{ inputs.runtime-version == 'latest' && 'true' }}
         cache: ${{ inputs.runtime-cache }}
 
     - name: Setup Node
@@ -71,7 +70,8 @@ runs:
       if: inputs.runtime == 'go'
       uses: actions/setup-go@cdcb36043654635271a94b9a6d1392de5bb323a7 # v5.0.1
       with:
-        go-version: ${{ inputs.runtime-version }}
+        go-version: ${{ inputs.runtime-version != 'latest' && inputs.runtime-version }}
+        check-latest: ${{ inputs.runtime-version == 'latest' && 'true' }}
 
     - name: Setup Pulumi cache
       uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
@@ -92,7 +92,7 @@ runs:
         diff: ${{ inputs.diff }}
         expect-no-changes: ${{ inputs.no-changes }}
         github-token: ${{ inputs.github-token }}
-        pulumi-version: ${{ inputs.version }}
+        pulumi-version: ${{ inputs.version != 'latest' && inputs.version }}
         stack-name: ${{ inputs.stack }}
         work-dir: ${{ inputs.workdir }}
       env:
