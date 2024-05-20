@@ -20,18 +20,13 @@
       "extractVersion": "^(?<version>\\d+\\.\\d+\\.\\d+)"
     },
     {
-      "groupName": "github actions",
-      "matchFileNames": [".github/**"],
+      "groupName": "ci",
+      "matchFileNames": [".github/**", ".pre-commit-config.yaml"],
       "semanticCommitType": "ci"
     },
     {
       "groupName": "go packages",
       "matchFileNames": ["go.mod", "go.sum"]
-    },
-    {
-      "groupName": "pre-commit",
-      "matchFileNames": [".pre-commit-config.yaml"],
-      "semanticCommitType": "ci"
     },
     {
       "groupName": "python packages",
