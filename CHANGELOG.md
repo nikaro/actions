@@ -1,3 +1,13 @@
+## 1.6.0 (2024-05-21)
+
+### Feat
+
+- **get-latest-version**: add strip-prefix option
+
+### Fix
+
+- use get-latest-version action
+
 ## 1.5.0 (2024-05-21)
 
 ### Feat
