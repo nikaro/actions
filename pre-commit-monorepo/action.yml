@@ -24,28 +24,32 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: Get latest Python version
+      id: python-version
+      if: inputs.python-version == 'latest'
+      uses: nikaro/actions/get-latest-version@2a152c1e93300421957ac35bb4342bdbe8d94e9d # 1.5.0
+      with:
+        package: python
+
     - name: Setup Python
       id: setup-python
       uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d # v5.1.0
       with:
-        python-version: ${{ inputs.python-version != 'latest' && inputs.python-version || '' }}
+        python-version: ${{ inputs.python-version == 'latest' && steps.python-version.outputs.version || inputs.python-version }}
         check-latest: ${{ inputs.python-version == 'latest' && 'true' }}
 
-    - name: Get pre-commit version
+    - name: Get latest pre-commit version
       id: pre-commit-version
-      shell: bash
-      run: |
-        if [ "${{ inputs.version }}" = "latest" ]; then
-          version=$(python3 -m pip index versions pre-commit | sed -n 's/.*(\([^()]*\)).*/\1/p')
-        else
-          version=${{ inputs.version }}
-        fi
-        echo "version=$version" >> "$GITHUB_OUTPUT"
+      if: inputs.version == 'latest'
+      uses: nikaro/actions/get-latest-version@2a152c1e93300421957ac35bb4342bdbe8d94e9d # 1.5.0
+      with:
+        package: pre-commit
+        manager: pypi
 
     - name: Cache pre-commit virtualenv
       uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
       with:
-        key: pre-commit-venv-py${{ steps.setup-python.outputs.python-version }}-pc${{ inputs.version }}
+        key: pre-commit-venv-py${{ steps.setup-python.outputs.python-version }}-pc${{ inputs.version == 'latest' && steps.pre-commit-version.outputs.version || inputs.version }}
         path: .venv
 
     - name: Install pre-commit
@@ -53,7 +57,7 @@ runs:
       run: |
         python -m venv .venv
         source .venv/bin/activate
-        python -m pip install pre-commit==${{ inputs.version }}
+        python -m pip install pre-commit==${{ inputs.version == 'latest' && steps.pre-commit-version.outputs.version || inputs.version }}
         echo "$VIRTUAL_ENV/bin" >> $GITHUB_PATH
         echo "VIRTUAL_ENV=$VIRTUAL_ENV" >> $GITHUB_ENV
 
@@ -61,9 +65,9 @@ runs:
       uses: actions/cache/restore@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
       with:
         path: ~/.cache/pre-commit
-        key: pre-commit-py${{ steps.setup-python.outputs.python-version }}-pc${{ inputs.version }}-${{ hashFiles('.pre-commit-config.yaml') }}
+        key: pre-commit-py${{ steps.setup-python.outputs.python-version }}-pc${{ inputs.version == 'latest' && steps.pre-commit-version.outputs.version || inputs.version }}-${{ hashFiles('.pre-commit-config.yaml') }}
         restore-keys: |
-          pre-commit-py${{ steps.setup-python.outputs.python-version }}-pc${{ inputs.version }}-
+          pre-commit-py${{ steps.setup-python.outputs.python-version }}-pc${{ inputs.version == 'latest' && steps.pre-commit-version.outputs.version || inputs.version }}-
           pre-commit-py${{ steps.setup-python.outputs.python-version }}-
           pre-commit-
       id: cache-pre-commit
@@ -77,7 +81,7 @@ runs:
       uses: actions/cache/save@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
       with:
         path: ~/.cache/pre-commit
-        key: pre-commit-py${{ steps.setup-python.outputs.python-version }}-pc${{ inputs.version }}-${{ hashFiles('.pre-commit-config.yaml') }}
+        key: pre-commit-py${{ steps.setup-python.outputs.python-version }}-pc${{ inputs.version == 'latest' && steps.pre-commit-version.outputs.version || inputs.version }}-${{ hashFiles('.pre-commit-config.yaml') }}
 
     - name: Run pre-commit in working directory
       shell: bash

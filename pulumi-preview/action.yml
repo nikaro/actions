@@ -51,11 +51,18 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: Get latest Python version
+      id: python-version
+      if: inputs.runtime == 'python' && inputs.runtime-version == 'latest'
+      uses: nikaro/actions/get-latest-version@2a152c1e93300421957ac35bb4342bdbe8d94e9d # 1.5.0
+      with:
+        package: python
+
     - name: Setup Python
       if: inputs.runtime == 'python'
       uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d # v5.1.0
       with:
-        python-version: ${{ inputs.runtime-version != 'latest' && inputs.runtime-version || '' }}
+        python-version: ${{ inputs.runtime-version == 'latest' && steps.python-version.outputs.version || inputs.runtime-version }}
         check-latest: ${{ inputs.runtime-version == 'latest' && 'true' }}
         cache: ${{ inputs.runtime-cache }}
 
