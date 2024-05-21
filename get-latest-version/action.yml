@@ -9,6 +9,9 @@ inputs:
   manager:
     description: package manager (gh-releases-name, gh-releases-tagname, gh-tags, pypi, npm)
     required: false
+  strip-prefix:
+    description: prefix to strip for version string
+    required: false
 
 outputs:
   version:
@@ -102,4 +105,4 @@ runs:
           echo "Unsupported package and/or manager."
           exit 1
         fi
-        echo "version=$version" >> "$GITHUB_OUTPUT"
+        echo "version=${version/#${{ inputs.strip-prefix }}}" >> "$GITHUB_OUTPUT"
