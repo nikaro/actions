@@ -16,5 +16,6 @@
       "allowedVersions": "!/(alpha|beta|rc)/",
       "extractVersion": "^(?<version>\\d+\\.\\d+\\.\\d+(-\\D+)?)"
     }
-  ]
+  ],
+  "schedule": ["on saturday"]
 }
