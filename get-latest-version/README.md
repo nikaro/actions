@@ -40,8 +40,9 @@ GitHub Action that fetch the latest version from different sources/managers.
 
 <!-- AUTO-DOC-INPUT:START - Do not remove or modify this section -->
 
-|  INPUT  |  TYPE  | REQUIRED |  DEFAULT   | DESCRIPTION  |
-|---------|--------|----------|------------|--------------|
-| version | string |  false   | `"latest"` | sops version |
+|  INPUT  |  TYPE  | REQUIRED | DEFAULT |                                 DESCRIPTION                                  |
+|---------|--------|----------|---------|------------------------------------------------------------------------------|
+| manager | string |  false   |         | package manager (gh-releases-name, gh-releases-tagname, gh-tags, pypi, npm)  |
+| package | string |   true   |         |                                 package name                                 |
 
 <!-- AUTO-DOC-INPUT:END -->
