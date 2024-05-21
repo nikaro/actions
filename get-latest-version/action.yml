@@ -1,0 +1,105 @@
+---
+name: get-latest-version
+description: Get the latest version for a given package
+
+inputs:
+  package:
+    description: package name
+    required: true
+  manager:
+    description: package manager (gh-releases-name, gh-releases-tagname, gh-tags, pypi, npm)
+    required: false
+
+outputs:
+  version:
+    description: Latest version of the given package
+    value: ${{ steps.final.outputs.version }}
+
+runs:
+  using: composite
+  steps:
+    - name: Get from PyPI
+      id: pypi
+      if: inputs.manager == 'pypi'
+      shell: bash
+      run: |
+        version=$(python3 -m pip index versions ${{ inputs.package }} | sed -n 's/.*(\([^()]*\)).*/\1/p')
+        echo "version=$version" >> "$GITHUB_OUTPUT"
+
+    - name: Get from NPM
+      id: npm
+      if: inputs.manager == 'npm'
+      shell: bash
+      run: |
+        version=$(npm view ${{ inputs.package }} version)
+        echo "version=$version" >> "$GITHUB_OUTPUT"
+
+    - name: Get from GitHub Releases name
+      id: gh-releases-name
+      if: inputs.manager == 'gh-releases-name'
+      shell: bash
+      run: |
+        version=$(gh release view --repo ${{ inputs.package }} --json name --jq .name)
+        echo "version=$version" >> "$GITHUB_OUTPUT"
+
+    - name: Get from GitHub Releases tag name
+      id: gh-releases-tagname
+      if: inputs.manager == 'gh-releases-tagname'
+      shell: bash
+      run: |
+        version=$(gh release view --repo ${{ inputs.package }} --json tagName --jq .tagName)
+        echo "version=$version" >> "$GITHUB_OUTPUT"
+
+    - name: Get from GitHub Tags
+      id: gh-tags
+      if: inputs.manager == 'gh-tags'
+      shell: bash
+      run: |
+        owner=$(echo ${{ inputs.package }} | cut -d'/' -f1)
+        name=$(echo ${{ inputs.package }} | cut -d'/' -f2)
+        version=$(
+          gh api graphql -F owner="$owner" -F name="$name" -f query='
+            query($name: String!, $owner: String!) {
+              repository(owner: $owner, name: $name) {
+                refs(refPrefix: "refs/tags/", first: 1, orderBy: {field: TAG_COMMIT_DATE, direction: DESC}) {
+                  edges {
+                    node {
+                      name
+                    }
+                  }
+                }
+              }
+            }
+          ' | jq -r '.data.repository.refs.edges[0].node.name'
+        )
+        echo "version=$version" >> "$GITHUB_OUTPUT"
+
+    - name: Get Python
+      id: python
+      if: inputs.package == 'python'
+      shell: bash
+      run: |
+        version=$(curl -sSL https://endoflife.date/api/python.json | jq -r '.[0].latest')
+        echo "version=$version" >> "$GITHUB_OUTPUT"
+
+    - name: Final Output
+      id: final
+      shell: bash
+      run: |
+        if [ "${{ inputs.manager }}" = "npm" ]; then
+          version=${{ steps.npm.outputs.version }}
+        elif [ "${{ inputs.manager }}" = "pypi" ]; then
+          version=${{ steps.pypi.outputs.version }}
+        elif [ "${{ inputs.manager }}" = "gh-tags" ]; then
+          version=${{ steps.gh-tags.outputs.version }}
+        elif [ "${{ inputs.manager }}" = "gh-releases-name" ]; then
+          version=${{ steps.gh-releases-name.outputs.version }}
+        elif [ "${{ inputs.manager }}" = "gh-releases-tagname" ]; then
+          version=${{ steps.gh-releases-tagname.outputs.version }}
+        elif [ "${{ inputs.package }}" = "python" ]; then
+          version=${{ steps.python.outputs.version }}
+        else
+          echo "Unsupported package and/or manager."
+          exit 1
+        fi
+        echo "version=$version" >> "$GITHUB_OUTPUT"
