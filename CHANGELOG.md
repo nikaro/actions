@@ -1,3 +1,13 @@
+## 1.5.0 (2024-05-21)
+
+### Feat
+
+- add get-latest-version action
+
+### Fix
+
+- **deps**: update jaxxstorm/action-install-gh-release action to v1.12.0 (#87)
+
 ## 1.4.0 (2024-05-20)
 
 ### Feat
