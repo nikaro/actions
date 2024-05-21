@@ -40,9 +40,10 @@ GitHub Action that fetch the latest version from different sources/managers.
 
 <!-- AUTO-DOC-INPUT:START - Do not remove or modify this section -->
 
-|  INPUT  |  TYPE  | REQUIRED | DEFAULT |                                 DESCRIPTION                                  |
-|---------|--------|----------|---------|------------------------------------------------------------------------------|
-| manager | string |  false   |         | package manager (gh-releases-name, gh-releases-tagname, gh-tags, pypi, npm)  |
-| package | string |   true   |         |                                 package name                                 |
+|    INPUT     |  TYPE  | REQUIRED | DEFAULT |                                 DESCRIPTION                                  |
+|--------------|--------|----------|---------|------------------------------------------------------------------------------|
+|   manager    | string |  false   |         | package manager (gh-releases-name, gh-releases-tagname, gh-tags, pypi, npm)  |
+|   package    | string |   true   |         |                                 package name                                 |
+| strip-prefix | string |  false   |         |                      prefix to strip for version string                      |
 
 <!-- AUTO-DOC-INPUT:END -->
