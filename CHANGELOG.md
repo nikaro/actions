@@ -1,3 +1,9 @@
+## 1.6.1 (2024-05-22)
+
+### Fix
+
+- **pulumi**: use get-latest-version for go runtime
+
 ## 1.6.0 (2024-05-21)
 
 ### Feat
