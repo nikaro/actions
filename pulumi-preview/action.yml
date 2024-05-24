@@ -54,7 +54,7 @@ runs:
     - name: Get latest Python version
       id: python-version
       if: inputs.runtime == 'python' && inputs.runtime-version == 'latest'
-      uses: nikaro/actions/get-latest-version@2a152c1e93300421957ac35bb4342bdbe8d94e9d # 1.5.0
+      uses: nikaro/actions/get-latest-version@e77a13149bd439f1dce6e1ab7eee379855f71a0e # 1.6.1
       with:
         package: python
 
@@ -76,7 +76,7 @@ runs:
     - name: Get latest Go version
       id: go-version
       if: inputs.runtime == 'go' && inputs.runtime-version == 'latest'
-      uses: nikaro/actions/get-latest-version@40f457b19d23d3f0a9a1ff4a978613773a2f228f # 1.6.0
+      uses: nikaro/actions/get-latest-version@e77a13149bd439f1dce6e1ab7eee379855f71a0e # 1.6.1
       with:
         package: golang/go
         manager: gh-releases-name
