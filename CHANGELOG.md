@@ -1,3 +1,10 @@
+## 1.6.2 (2024-05-25)
+
+### Fix
+
+- **setup-rye**: update step url
+- **deps**: update nikaro/actions action to v1.6.1 (#89)
+
 ## 1.6.1 (2024-05-22)
 
 ### Fix
