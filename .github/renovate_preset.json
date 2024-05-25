@@ -21,7 +21,8 @@
     {
       "groupName": "ci packages",
       "matchFileNames": [".github/**", ".pre-commit-config.yaml"],
-      "semanticCommitType": "ci"
+      "semanticCommitType": "ci",
+      "automerge": true
     },
     {
       "groupName": "go packages",
