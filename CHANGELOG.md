@@ -1,3 +1,9 @@
+## 1.6.3 (2024-05-29)
+
+### Fix
+
+- **deps**: update nikaro/actions action to v1.6.2 (#91)
+
 ## 1.6.2 (2024-05-25)
 
 ### Fix
