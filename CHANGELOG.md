@@ -1,3 +1,10 @@
+## 1.6.4 (2024-06-05)
+
+### Fix
+
+- **deps**: update pulumi/actions action to v5.2.4 (#94)
+- **deps**: update nikaro/actions action to v1.6.3 (#93)
+
 ## 1.6.3 (2024-05-29)
 
 ### Fix
