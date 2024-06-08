@@ -29,7 +29,7 @@ runs:
     - name: Get latest Python version
       id: python-version
       if: inputs.python-version == 'latest'
-      uses: nikaro/actions/get-latest-version@034b5e995ae7de67fb5f813951e3678085f7d129 # 1.6.3
+      uses: nikaro/actions/get-latest-version@778344cb9ff71fc2237011ac731622e1da3a109a # 1.6.4
       with:
         package: python
 
@@ -43,7 +43,7 @@ runs:
     - name: Get latest pre-commit version
       id: pre-commit-version
       if: inputs.version == 'latest'
-      uses: nikaro/actions/get-latest-version@034b5e995ae7de67fb5f813951e3678085f7d129 # 1.6.3
+      uses: nikaro/actions/get-latest-version@778344cb9ff71fc2237011ac731622e1da3a109a # 1.6.4
       with:
         package: pre-commit
         manager: pypi
