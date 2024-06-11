@@ -1,3 +1,9 @@
+## 1.6.5 (2024-06-11)
+
+### Fix
+
+- use main branch for self action
+
 ## 1.6.4 (2024-06-05)
 
 ### Fix
