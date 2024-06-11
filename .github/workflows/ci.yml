@@ -18,3 +18,5 @@ jobs:
 
       - name: Run pre-commit
         uses: ./pre-commit
+        with:
+          python-version: 3.x
