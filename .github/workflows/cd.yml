@@ -57,6 +57,10 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Get version
+        id: latest-tag
+        run: echo "tag=$(git describe --tags --abbrev=0)" >> "$GITHUB_OUTPUT"
+
       - name: Dry run
         uses: commitizen-tools/commitizen-action@1f11eb222996406681d2bfa1eb3d997eca46557c # 0.21.0
         with:
@@ -71,7 +75,14 @@ jobs:
           github_token: ${{ github.token }}
           changelog_increment_filename: _changelog.md
 
+      - name: Check if version bumped
+        id: check-tag
+        run: |
+          [ "${{ steps.latest-tag.outputs.tag }}" != "${{ steps.cz.outputs.version }}" ] && bump=true
+          echo "bump=$bump" >> "$GITHUB_OUTPUT"
+
       - name: Release
+        if: steps.check-tag.outputs.bump == 'true'
         uses: ncipollo/release-action@2c591bcc8ecdcd2db72b97d6147f871fcd833ba5 # v1.14.0
         with:
           bodyFile: _changelog.md
