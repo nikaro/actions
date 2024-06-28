@@ -99,7 +99,7 @@ runs:
         restore-keys: pulumi-
 
     - name: Preview changes
-      uses: pulumi/actions@18b5a33fc447ab919feb61f2bb41147a1b30ab40 # v5.2.4
+      uses: pulumi/actions@760956aff50b515c197ee22d30aa8d756f7b86a2 # v5.3.2
       with:
         cloud-url: ${{ inputs.backend }}
         command: preview
