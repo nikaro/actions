@@ -40,6 +40,13 @@
       "matchStrings": [
         "# renovate: datasource=(?<datasource>[a-z-.]+?) depName=(?<depName>[^\\s]+?)(?: (?:lookupName|packageName)=(?<packageName>[^\\s]+?))?(?: versioning=(?<versioning>[a-z-0-9]+?))?\\s+-\\s+[A-Za-z0-9_-]+?==(?<currentValue>.+?)\\s"
       ]
+    },
+    {
+      "customType": "regex",
+      "fileMatch": ["(^|/)netlify\\.toml$"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>[a-z-.]+?) depName=(?<depName>[^\\s]+?)(?: (?:lookupName|packageName)=(?<packageName>[^\\s]+?))?\\s.+?_VERSION = \"(?<currentValue>.+?)\"\\s"
+      ]
     }
   ],
   "reviewersFromCodeOwners": true,
