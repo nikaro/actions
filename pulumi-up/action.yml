@@ -1,3 +1,4 @@
+---
 name: pulumi-up
 description: Run pulumi up
 
@@ -56,7 +57,7 @@ runs:
 
     - name: Setup Python
       if: inputs.runtime == 'python'
-      uses: actions/setup-python@39cd14951b08e74b54015e9e001cdefcf80e669f # v5.1.1
+      uses: actions/setup-python@main
       with:
         python-version: ${{ inputs.runtime-version == 'latest' && steps.python-version.outputs.version || inputs.runtime-version }}
         check-latest: ${{ inputs.runtime-version == 'latest' && 'true' }}
@@ -64,7 +65,7 @@ runs:
 
     - name: Setup Node
       if: inputs.runtime == 'nodejs'
-      uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
+      uses: actions/setup-node@main
       with:
         node-version: ${{ inputs.runtime-version }}
         cache: ${{ inputs.runtime-cache }}
@@ -80,13 +81,13 @@ runs:
 
     - name: Setup Go
       if: inputs.runtime == 'go'
-      uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32 # v5.0.2
+      uses: actions/setup-go@main
       with:
         go-version: ${{ inputs.runtime-version == 'latest' && steps.go-version.outputs.version || inputs.runtime-version }}
         check-latest: ${{ inputs.runtime-version == 'latest' && 'true' }}
 
     - name: Setup Pulumi cache
-      uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
+      uses: actions/cache@main
       with:
         path: |
           ~/.pulumi/
@@ -95,7 +96,7 @@ runs:
         restore-keys: pulumi-
 
     - name: Apply changes
-      uses: pulumi/actions@d79ef3665e6d664f1e29959e0dd40373d922a653 # v5.3.3
+      uses: pulumi/actions@main
       with:
         cloud-url: ${{ inputs.backend }}
         command: up

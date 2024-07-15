@@ -1,3 +1,4 @@
+---
 name: setup-rye
 description: Install Rye, the package manager for Python
 
@@ -15,7 +16,7 @@ runs:
   using: composite
   steps:
     - name: Cache Rye installation
-      uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
+      uses: actions/cache@main
       with:
         path: ~/.rye
         key: ${{ runner.os }}-rye-${{ inputs.version }}

@@ -89,20 +89,28 @@ runs:
       id: final
       shell: bash
       run: |
-        if [ "${{ inputs.manager }}" = "npm" ]; then
+        case "${{ inputs.manager }}" in
+        npm)
           version=${{ steps.npm.outputs.version }}
-        elif [ "${{ inputs.manager }}" = "pypi" ]; then
+          ;;
+        pypi)
           version=${{ steps.pypi.outputs.version }}
-        elif [ "${{ inputs.manager }}" = "gh-tags" ]; then
+          ;;
+        gh-tags)
           version=${{ steps.gh-tags.outputs.version }}
-        elif [ "${{ inputs.manager }}" = "gh-releases-name" ]; then
+          ;;
+        gh-releases-name)
           version=${{ steps.gh-releases-name.outputs.version }}
-        elif [ "${{ inputs.manager }}" = "gh-releases-tagname" ]; then
+          ;;
+        gh-releases-tagname)
           version=${{ steps.gh-releases-tagname.outputs.version }}
-        elif [ "${{ inputs.package }}" = "python" ]; then
+          ;;
+        python)
           version=${{ steps.python.outputs.version }}
-        else
+          ;;
+        *)
           echo "Unsupported package and/or manager."
           exit 1
-        fi
+          ;;
+        esac
         echo "version=${version/#${{ inputs.strip-prefix }}}" >> "$GITHUB_OUTPUT"

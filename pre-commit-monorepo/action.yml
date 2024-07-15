@@ -1,3 +1,4 @@
+---
 name: pre-commit-monorepo
 description: Run pre-commit hooks in a monorepo context
 
@@ -33,7 +34,7 @@ runs:
 
     - name: Setup Python
       id: setup-python
-      uses: actions/setup-python@39cd14951b08e74b54015e9e001cdefcf80e669f # v5.1.1
+      uses: actions/setup-python@main
       with:
         python-version: ${{ inputs.python-version == 'latest' && steps.python-version.outputs.version || inputs.python-version }}
         check-latest: ${{ inputs.python-version == 'latest' && 'true' }}
@@ -47,7 +48,7 @@ runs:
         manager: pypi
 
     - name: Cache pre-commit virtualenv
-      uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
+      uses: actions/cache@main
       with:
         key: pre-commit-venv-py${{ steps.setup-python.outputs.python-version }}-pc${{ inputs.version == 'latest' && steps.pre-commit-version.outputs.version || inputs.version }}
         path: .venv
@@ -62,7 +63,7 @@ runs:
         echo "VIRTUAL_ENV=$VIRTUAL_ENV" >> $GITHUB_ENV
 
     - name: Restore pre-commit cache
-      uses: actions/cache/restore@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
+      uses: actions/cache/restore@main
       with:
         path: ~/.cache/pre-commit
         key: pre-commit-py${{ steps.setup-python.outputs.python-version }}-pc${{ inputs.version == 'latest' && steps.pre-commit-version.outputs.version || inputs.version }}-${{ hashFiles('.pre-commit-config.yaml') }}
@@ -78,7 +79,7 @@ runs:
 
     - name: Save pre-commit cache
       if: steps.cache-pre-commit.outputs.cache-hit != 'true'
-      uses: actions/cache/save@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
+      uses: actions/cache/save@main
       with:
         path: ~/.cache/pre-commit
         key: pre-commit-py${{ steps.setup-python.outputs.python-version }}-pc${{ inputs.version == 'latest' && steps.pre-commit-version.outputs.version || inputs.version }}-${{ hashFiles('.pre-commit-config.yaml') }}
