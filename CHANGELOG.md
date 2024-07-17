@@ -1,3 +1,17 @@
+## 1.6.7 (2024-07-17)
+
+### Fix
+
+- use main branch for trusted actions
+- **deps**: update actions/setup-node action to v4.0.3 (#101)
+- **deps**: update actions/setup-go action to v5.0.2 (#100)
+- **deps**: update actions/setup-python action to v5.1.1 (#102)
+- **deps**: update pulumi/actions action to v5.3.3 (#103)
+
+### Refactor
+
+- **getsops**: use bash script instead of thrid-party action
+
 ## 1.6.6 (2024-07-03)
 
 ### Fix
