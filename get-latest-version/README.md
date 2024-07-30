@@ -42,7 +42,7 @@ GitHub Action that fetch the latest version from different sources/managers.
 
 |    INPUT     |  TYPE  | REQUIRED | DEFAULT |                                 DESCRIPTION                                  |
 |--------------|--------|----------|---------|------------------------------------------------------------------------------|
-|   manager    | string |  false   |         | package manager (gh-releases-name, gh-releases-tagname, gh-tags, pypi, npm)  |
+|   manager    | string |   true   |         | package manager (gh-releases-name, gh-releases-tagname, gh-tags, pypi, npm)  |
 |   package    | string |   true   |         |                                 package name                                 |
 | strip-prefix | string |  false   |         |                      prefix to strip for version string                      |
 
