@@ -1,4 +1,3 @@
----
 name: pre-commit-monorepo
 description: Run pre-commit hooks in a monorepo context
 

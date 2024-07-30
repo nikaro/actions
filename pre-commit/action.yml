@@ -1,4 +1,3 @@
----
 name: pre-commit
 description: Run pre-commit hooks
 

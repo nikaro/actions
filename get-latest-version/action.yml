@@ -1,4 +1,3 @@
----
 name: get-latest-version
 description: Get the latest version for a given package
 
@@ -88,7 +87,7 @@ runs:
     - name: Final Output
       id: final
       shell: bash
-      run: |
+      run: |-
         case "${{ inputs.manager }}" in
         npm)
           version=${{ steps.npm.outputs.version }}

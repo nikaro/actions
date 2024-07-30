@@ -2,7 +2,7 @@ name: CD
 
 on:
   schedule:
-    - cron: "0 0 * * 3" # At 00:00 on Wednesday
+    - cron: "0 0 * * 3"  # At 00:00 on Wednesday
   workflow_dispatch:
 
 jobs:
@@ -19,12 +19,12 @@ jobs:
       contents: write
     steps:
       - name: Checkout
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332  # v4.1.7
         with:
           ref: ${{ github.ref_name }}
 
       - name: Setup Go
-        uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32 # v5.0.2
+        uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32  # v5.0.2
         with:
           cache: false
           go-version: stable
@@ -53,7 +53,7 @@ jobs:
       contents: write
     steps:
       - name: Checkout
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332  # v4.1.7
         with:
           fetch-depth: 0
 
@@ -62,7 +62,7 @@ jobs:
         run: echo "tag=$(git describe --tags --abbrev=0)" >> "$GITHUB_OUTPUT"
 
       - name: Dry run
-        uses: commitizen-tools/commitizen-action@1f11eb222996406681d2bfa1eb3d997eca46557c # 0.21.0
+        uses: commitizen-tools/commitizen-action@1f11eb222996406681d2bfa1eb3d997eca46557c  # 0.21.0
         with:
           github_token: ${{ github.token }}
           changelog_increment_filename: _changelog.md
@@ -70,7 +70,7 @@ jobs:
 
       - name: Bump
         id: cz
-        uses: commitizen-tools/commitizen-action@1f11eb222996406681d2bfa1eb3d997eca46557c # 0.21.0
+        uses: commitizen-tools/commitizen-action@1f11eb222996406681d2bfa1eb3d997eca46557c  # 0.21.0
         with:
           github_token: ${{ github.token }}
           changelog_increment_filename: _changelog.md
@@ -83,7 +83,7 @@ jobs:
 
       - name: Release
         if: steps.check-tag.outputs.bump == 'true'
-        uses: ncipollo/release-action@2c591bcc8ecdcd2db72b97d6147f871fcd833ba5 # v1.14.0
+        uses: ncipollo/release-action@2c591bcc8ecdcd2db72b97d6147f871fcd833ba5  # v1.14.0
         with:
           bodyFile: _changelog.md
           skipIfReleaseExists: true
