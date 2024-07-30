@@ -53,6 +53,7 @@ runs:
       if: inputs.runtime == 'python' && inputs.runtime-version == 'latest'
       uses: nikaro/actions/get-latest-version@main
       with:
+        manager: python
         package: python
 
     - name: Setup Python

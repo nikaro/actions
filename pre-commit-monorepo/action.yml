@@ -30,6 +30,7 @@ runs:
       if: inputs.python-version == 'latest'
       uses: nikaro/actions/get-latest-version@main
       with:
+        manager: python
         package: python
 
     - name: Setup Python
