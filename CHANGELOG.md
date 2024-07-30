@@ -1,3 +1,11 @@
+## 1.6.8 (2024-07-30)
+
+### Fix
+
+- **getsops**: correct action script path
+- pass required python manager to action
+- **get-latest-version**: set manager input as mandatory
+
 ## 1.6.7 (2024-07-17)
 
 ### Fix
