@@ -8,7 +8,7 @@ inputs:
     required: true
   manager:
     description: package manager (gh-releases-name, gh-releases-tagname, gh-tags, pypi, npm)
-    required: false
+    required: true
   strip-prefix:
     description: prefix to strip for version string
     required: false
