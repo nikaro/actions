@@ -1,3 +1,9 @@
+## 1.6.10 (2024-08-01)
+
+### Fix
+
+- **getsops**: use full action path for script
+
 ## 1.6.9 (2024-08-01)
 
 ### Fix
