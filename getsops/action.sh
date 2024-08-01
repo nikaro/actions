@@ -33,10 +33,10 @@ esac
 # set architecture
 u_arch=$(uname -m)
 case $u_arch in
-arm64 , aarch64)
+arm64 | aarch64)
 	arch=arm64
 	;;
-amd64,x86_64)
+amd64 | x86_64)
 	arch=amd64
 	;;
 *)
