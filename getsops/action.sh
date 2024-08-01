@@ -3,6 +3,9 @@
 set -o errexit  # abort on nonzero exitstatus
 set -o nounset  # abort on unbound variable
 set -o pipefail # don't hide errors within pipes
+if [ "${RUNNER_DEBUG:-}" = "1" ]; then
+	set -o xtrace # print each command execution
+fi
 
 # set version
 if [ "${INPUT_VERSION:-}" = "latest" ]; then
@@ -13,7 +16,8 @@ fi
 version="${version/#v/}"
 
 # set os
-case $(uname) in
+u_os=$(uname)
+case $u_os in
 Linux)
 	os=linux
 	;;
@@ -27,8 +31,9 @@ Darwin)
 esac
 
 # set architecture
-case $(uname -m) in
-arm64,aarch64)
+u_arch=$(uname -m)
+case $u_arch in
+arm64 , aarch64)
 	arch=arm64
 	;;
 amd64,x86_64)
