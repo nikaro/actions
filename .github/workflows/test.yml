@@ -1,7 +1,7 @@
 name: CI / Test
 
 on:
-  # pull_request:
+  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -10,8 +10,5 @@ jobs:
     runs-on: ubuntu-latest
     permissions: {}
     steps:
-      - name: Checkout
-        uses: actions/checkout@main
-
       - name: Run
-        uses: ./getsops
+        uses: nikaro/actions/getsops@fix/getsops

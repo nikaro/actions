@@ -12,6 +12,6 @@ runs:
   steps:
     - name: Set version
       shell: bash
-      run: getsops/action.sh
+      run: ${{ github.action_path }}/action.sh
       env:
         INPUT_VERSION: ${{ inputs.version }}
