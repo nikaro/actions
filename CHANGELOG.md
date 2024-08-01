@@ -1,3 +1,10 @@
+## 1.6.9 (2024-08-01)
+
+### Fix
+
+- **getsops**: case syntax for architecture detection
+- **getsops**: make script executable
+
 ## 1.6.8 (2024-07-30)
 
 ### Fix
