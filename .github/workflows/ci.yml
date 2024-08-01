@@ -19,7 +19,7 @@ jobs:
       - name: Install tools
         run: |
           echo "/home/linuxbrew/.linuxbrew/bin" >> "$GITHUB_PATH"
-          brew install \
+          /home/linuxbrew/.linuxbrew/bin/brew install \
             actionlint \
             check-jsonschema \
             ruff \
