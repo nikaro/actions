@@ -1,0 +1,17 @@
+name: CI / Test
+
+on:
+  # pull_request:
+  workflow_dispatch:
+
+jobs:
+  action:
+    name: Action
+    runs-on: ubuntu-latest
+    permissions: {}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: Run
+        uses: ./getsops
