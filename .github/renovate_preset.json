@@ -4,7 +4,6 @@
   "assigneesFromCodeOwners": true,
   "extends": [
     "config:recommended",
-    "helpers:pinGitHubActionDigests",
     "regexManagers:dockerfileVersions",
     "regexManagers:githubActionsVersions",
     "schedule:weekly",
