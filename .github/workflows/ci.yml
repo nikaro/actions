@@ -25,6 +25,7 @@ jobs:
           /home/linuxbrew/.linuxbrew/bin/brew install \
             actionlint \
             check-jsonschema \
+            fd \
             go-task \
             jq \
             prettier \
