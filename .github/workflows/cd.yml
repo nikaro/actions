@@ -14,27 +14,22 @@ jobs:
   autodoc:
     name: Generate documentation
     needs: [ci]
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
+    container: ghcr.io/nikaro/gha:latest
     permissions:
       contents: write
     steps:
       - name: Checkout
-        uses: actions/checkout@main
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.ref_name }}
 
-      - name: Setup Go
-        uses: actions/setup-go@main
-        with:
-          cache: false
-          go-version: stable
-
       - name: Install auto-doc
-        run: go install github.com/tj-actions/auto-doc/v3@latest
+        run: brew install tj-actions/tap/auto-doc
 
       - name: Run auto-doc
         run: |
-          git config --global user.name github-actions
+          git config --global user.name github-actions[bot]
           git config --global user.email github-actions@github.com
           for d in */; do
             pushd "./$d"
@@ -48,43 +43,24 @@ jobs:
   release:
     name: Release
     needs: [autodoc]
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
       - name: Checkout
-        uses: actions/checkout@main
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Get version
-        id: latest-tag
-        run: echo "tag=$(git describe --tags --abbrev=0)" >> "$GITHUB_OUTPUT"
-
-      - name: Dry run
-        uses: commitizen-tools/commitizen-action@master
-        with:
-          github_token: ${{ github.token }}
-          changelog_increment_filename: _changelog.md
-          dry_run: true
-
       - name: Bump
-        id: cz
-        uses: commitizen-tools/commitizen-action@master
+        uses: commitizen-tools/commitizen-action@0.21.0
         with:
           github_token: ${{ github.token }}
           changelog_increment_filename: _changelog.md
-
-      - name: Check if version bumped
-        id: check-tag
-        run: |
-          [ "${{ steps.latest-tag.outputs.tag }}" != "${{ steps.cz.outputs.version }}" ] && bump=true
-          echo "bump=$bump" >> "$GITHUB_OUTPUT"
 
       - name: Release
-        if: steps.check-tag.outputs.bump == 'true'
-        uses: ncipollo/release-action@2c591bcc8ecdcd2db72b97d6147f871fcd833ba5  # v1.14.0
+        if: env.PREVIOUS_REVISION != env.REVISION
+        uses: softprops/action-gh-release@v2
         with:
-          bodyFile: _changelog.md
-          skipIfReleaseExists: true
-          tag: ${{ steps.cz.outputs.version }}
+          body_path: _changelog.md
+          name: ${{ env.REVISION }}
