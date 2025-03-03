@@ -53,7 +53,7 @@ jobs:
           fetch-depth: 0
 
       - name: Bump
-        uses: commitizen-tools/commitizen-action@0.23.1
+        uses: commitizen-tools/commitizen-action@0.24.0
         with:
           github_token: ${{ github.token }}
           changelog_increment_filename: _changelog.md
