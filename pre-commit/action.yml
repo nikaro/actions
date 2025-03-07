@@ -6,6 +6,10 @@ inputs:
     description: arguments to pass to pre-commit run
     required: false
     default: --all-files
+  install:
+    description: install pre-commit, set to 'no' if it is already installed
+    required: false
+    default: "yes"
   python-version:
     description: python version
     required: false
@@ -28,7 +32,7 @@ runs:
   steps:
     - name: Get latest Python version
       id: python-version
-      if: inputs.python-version == 'latest'
+      if: inputs.python-version == 'latest' && contains(fromJSON('["yes", "true"]'), inputs.install)
       uses: nikaro/actions/get-latest-version@main
       with:
         manager: python
@@ -36,6 +40,7 @@ runs:
 
     - name: Setup Python
       id: setup-python
+      if: contains(fromJSON('["yes", "true"]'), inputs.install)
       uses: actions/setup-python@main
       with:
         python-version: ${{ inputs.python-version == 'latest' && steps.python-version.outputs.version || inputs.python-version }}
@@ -43,19 +48,21 @@ runs:
 
     - name: Get latest pre-commit version
       id: pre-commit-version
-      if: inputs.version == 'latest'
+      if: inputs.version == 'latest' && contains(fromJSON('["yes", "true"]'), inputs.install)
       uses: nikaro/actions/get-latest-version@main
       with:
         package: pre-commit
         manager: pypi
 
     - name: Cache pre-commit virtualenv
+      if: contains(fromJSON('["yes", "true"]'), inputs.install)
       uses: actions/cache@main
       with:
         key: pre-commit-venv-py${{ steps.setup-python.outputs.python-version }}-pc${{ inputs.version == 'latest' && steps.pre-commit-version.outputs.version || inputs.version }}
         path: .venv
 
     - name: Install pre-commit
+      if: contains(fromJSON('["yes", "true"]'), inputs.install)
       shell: bash
       run: |
         python -m venv .venv
