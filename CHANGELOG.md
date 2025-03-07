@@ -1,3 +1,9 @@
+## 1.7.0 (2025-03-07)
+
+### Feat
+
+- allow to skip pre-commit installation
+
 ## 1.6.11 (2024-10-16)
 
 ### Fix
