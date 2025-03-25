@@ -20,7 +20,7 @@ jobs:
       contents: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           ref: ${{ github.ref_name }}
 
@@ -48,12 +48,12 @@ jobs:
       contents: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           fetch-depth: 0
 
       - name: Bump
-        uses: commitizen-tools/commitizen-action@0.24.0
+        uses: commitizen-tools/commitizen-action@5b0848cd060263e24602d1eba03710e056ef7711 # 0.24.0
         with:
           github_token: ${{ github.token }}
           changelog_increment_filename: _changelog.md
@@ -61,7 +61,7 @@ jobs:
 
       - name: Release
         if: env.PREVIOUS_REVISION != env.REVISION
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@c95fe1489396fe8a9eb87c0abf8aa5b2ef267fda # v2
         with:
           body_path: _changelog.md
           name: ${{ env.REVISION }}
